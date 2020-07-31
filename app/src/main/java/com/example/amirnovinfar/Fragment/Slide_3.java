@@ -1,6 +1,8 @@
 package com.example.amirnovinfar.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +20,8 @@ import com.example.amirnovinfar.R;
  */
 public class Slide_3 extends Fragment {
 
-    public Slide_3() {
-        // Required empty public constructor
-    }
+    SharedPreferences sharedPreferences;
+    boolean islogin;
 
 
     @Override
@@ -34,10 +35,15 @@ public class Slide_3 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Button button;
         button=view.findViewById(R.id.btn);
+        sharedPreferences=getActivity().getSharedPreferences("islogin", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), FlashLightActivity.class));
+                islogin=true;
+                editor.putBoolean("ISLOGIN",islogin);
+                editor.apply();
                 getActivity().finish();
             }
         });
