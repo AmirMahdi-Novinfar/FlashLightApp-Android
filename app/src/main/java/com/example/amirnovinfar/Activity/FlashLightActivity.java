@@ -24,6 +24,19 @@ public class FlashLightActivity extends AppCompatActivity {
     }
 
     private void issupportedflash() {
+        hasflash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        if (!hasflash) {
+            AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
+            alertDialog.setTitle("خطا!");
+            alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+            alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alertDialog.show();
 
+        }
     }
 }
