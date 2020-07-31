@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#710085"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/image_2"
+        android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:textColor="#fff"
+        android:id="@+id/txttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="سبک و قابل کارکرد"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"></TextView>
+
+    <TextView
+        android:textColor="#fff"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textdescription"
+        android:textSize="14sp"
+        android:layout_marginTop="40dp"
+        android:text="این برنامه بسیار سبک بوده و هیچ منبع زیادی از تلفن همراه شما را نمیگیرد"></TextView>
+
+
+
+
+</LinearLayout>
