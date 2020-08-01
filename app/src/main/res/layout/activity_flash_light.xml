@@ -56,7 +56,7 @@
                 android:gravity="left"
                 android:orientation="vertical">
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/img_cheshmak"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
@@ -98,14 +98,17 @@
 
 
             </LinearLayout>
-            <ImageButton
-                android:id="@+id/btn_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:background="@null"
-                android:contentDescription="@null"
-                android:src="@drawable/main_on" />
+           <androidx.appcompat.widget.AppCompatImageButton
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/main_off"
+               android:id="@+id/btn_switch"
+               android:background="@null">
+
+           </androidx.appcompat.widget.AppCompatImageButton>
+
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

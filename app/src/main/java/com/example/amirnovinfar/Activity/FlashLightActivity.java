@@ -3,6 +3,8 @@ package com.example.amirnovinfar.Activity;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,12 +21,11 @@ import android.widget.Toast;
 import com.example.amirnovinfar.R;
 
 public class FlashLightActivity extends AppCompatActivity {
-    ImageButton imageButton, img_cheshmak;
+    AppCompatImageButton imageButton,img_cheshmak;
     boolean hasflash, isflashon;
     MediaPlayer mediaPlayer;
     CameraManager camera;
-
-
+    int chknum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,6 @@ public class FlashLightActivity extends AppCompatActivity {
         setupviews();
         issupportedflash();
         isflashon = false;
-
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -45,25 +45,37 @@ public class FlashLightActivity extends AppCompatActivity {
 
                    else if (isflashon==true){
                     TurnOffFlashlights();
+                    imageButton.setBackgroundResource(R.drawable.main_off);
                 }
 
             }
         });
-
         img_cheshmak.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
+                if (isflashon){
+                    if (chknum==1){
+                        for (int i=0;i<=2000;i++){
+                            TurnOffFlashlights();
+                            TurnOnFlashlights();
+                        }
+                        img_cheshmak.setBackgroundResource(R.drawable.small_cheshmak_off);
+                        chknum=0;
+                    }else {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    TurnOffFlashlights();
+                        img_cheshmak.setBackgroundResource(R.drawable.small_cheshmak_off);
+                        chknum=1;
+                        img_cheshmak.setBackgroundResource(R.drawable.small_cheshmak);
+                    }
                 }
             }
         });
     }
 
     private void setupviews() {
-        imageButton = findViewById(R.id.btn_switch);
-        img_cheshmak = findViewById(R.id.img_cheshmak);
+        imageButton = (AppCompatImageButton) findViewById(R.id.btn_switch);
+        img_cheshmak = (AppCompatImageButton) findViewById(R.id.img_cheshmak);
     }
 
     private void issupportedflash() {
@@ -92,12 +104,16 @@ public class FlashLightActivity extends AppCompatActivity {
                 cameraManager.setTorchMode(camid, true);
                 isflashon = true;
             }
+
+            Changebackground_btn_switch();
+            playbtnsound();
+
         } catch (Exception e) {
             Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
-    }
 
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void TurnOffFlashlights() {
@@ -108,10 +124,59 @@ public class FlashLightActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 cameraManager.setTorchMode(camid, false);
             }
+            Changebackground_btn_switch();
+            playbtnsound();
+
         } catch (Exception e) {
             Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 
         }
 
+
     }
+
+    public void Changebackground_btn_switch() {
+
+        if (isflashon) {
+            imageButton.setBackgroundResource(R.drawable.main_on);
+        } else if (isflashon==false){
+            imageButton.setBackgroundResource(R.drawable.main_off);
+        }
+    }
+
+    public void playbtnsound(){
+        if (isflashon){
+            mediaPlayer=MediaPlayer.create(FlashLightActivity.this,R.raw.switch_on);
+        }else{
+            mediaPlayer=MediaPlayer.create(FlashLightActivity.this,R.raw.switch_off);
+        }
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayerkk) {
+                mediaPlayer.release();
+            }
+        });
+
+        mediaPlayer.start();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (hasflash){
+            TurnOnFlashlights();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        TurnOnFlashlights();
+    }
+
 }
+
