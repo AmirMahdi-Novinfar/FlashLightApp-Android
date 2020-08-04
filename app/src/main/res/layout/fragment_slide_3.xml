@@ -30,12 +30,7 @@
         android:textSize="17sp"
         android:layout_marginTop="40dp"
         android:text="این برنامه بسیار راحت بوده و هر فردی میتواند با این برنامه کار کند."></TextView>
-    <Button
-        android:id="@+id/btn"
-        android:text="ورود به برنامه"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"></Button>
+
 
 
 

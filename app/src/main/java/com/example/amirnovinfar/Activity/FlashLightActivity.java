@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.example.amirnovinfar.R;
 
 public class FlashLightActivity extends AppCompatActivity {
-    AppCompatImageButton imageButton,img_cheshmak;
+    AppCompatImageButton imageButton, img_cheshmak;
     boolean hasflash, isflashon;
     MediaPlayer mediaPlayer;
     CameraManager camera;
@@ -39,13 +39,11 @@ public class FlashLightActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-                if (isflashon==false){
+                if (isflashon == false) {
                     TurnOnFlashlights();
-                }
-
-                   else if (isflashon==true){
+                } else if (isflashon == true) {
                     TurnOffFlashlights();
-                    imageButton.setBackgroundResource(R.drawable.main_off);
+                    imageButton.setImageResource(R.drawable.main_off);
                 }
 
             }
@@ -54,19 +52,18 @@ public class FlashLightActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-                if (isflashon){
-                    if (chknum==1){
-                        for (int i=0;i<=20;i++){
+                if (isflashon) {
+                    if (chknum == 1) {
+                        for (int i = 0; i <= 20; i++) {
                             TurnOffFlashlights();
                             TurnOnFlashlights();
                         }
-                        img_cheshmak.setBackgroundResource(R.drawable.small_cheshmak_off);
-                        chknum=0;
-                    }else {
-
-                        img_cheshmak.setBackgroundResource(R.drawable.small_cheshmak_off);
-                        chknum=1;
-                        img_cheshmak.setBackgroundResource(R.drawable.small_cheshmak);
+                        img_cheshmak.setImageResource(R.drawable.small_cheshmak_off);
+                        chknum = 0;
+                    } else {
+                        img_cheshmak.setImageResource(R.drawable.small_cheshmak_off);
+                        chknum = 1;
+                        img_cheshmak.setImageResource(R.drawable.small_cheshmak);
                     }
                 }
             }
@@ -138,17 +135,17 @@ public class FlashLightActivity extends AppCompatActivity {
     public void Changebackground_btn_switch() {
 
         if (isflashon) {
-            imageButton.setBackgroundResource(R.drawable.main_on);
-        } else if (isflashon==false){
-            imageButton.setBackgroundResource(R.drawable.main_off);
+            imageButton.setImageResource(R.drawable.main_on);
+        } else if (isflashon == false) {
+            imageButton.setImageResource(R.drawable.main_off);
         }
     }
 
-    public void playbtnsound(){
-        if (isflashon){
-            mediaPlayer=MediaPlayer.create(FlashLightActivity.this,R.raw.switch_on);
-        }else{
-            mediaPlayer=MediaPlayer.create(FlashLightActivity.this,R.raw.switch_off);
+    public void playbtnsound() {
+        if (isflashon) {
+            mediaPlayer = MediaPlayer.create(FlashLightActivity.this, R.raw.switch_on);
+        } else {
+            mediaPlayer = MediaPlayer.create(FlashLightActivity.this, R.raw.switch_off);
         }
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -166,7 +163,7 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (hasflash){
+        if (hasflash) {
             TurnOnFlashlights();
         }
     }

@@ -9,17 +9,17 @@
     android:orientation="horizontal">
 
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
 
         android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="3dp">
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp">
 
-    </androidx.viewpager2.widget.ViewPager2>
+    </androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,13 +35,14 @@
            android:layout_width="match_parent"
             android:layout_height="1dp"
        android:layout_above="@id/dots_layout"
-         android:background="@android:color/holo_red_dark"
+         android:background="@android:color/white"
        ></View>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="بعدی"
+        android:textSize="35sp"
         android:textColor="@android:color/white"
         android:background="@null"
         android:id="@+id/btn_next"
@@ -53,11 +54,12 @@
     <Button
         android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-        android:text="قبلی"
+        android:text="ردکردن"
         android:textColor="@android:color/white"
         android:background="@null"
         android:id="@+id/btn_per"
 
+        android:textSize="35sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
 
