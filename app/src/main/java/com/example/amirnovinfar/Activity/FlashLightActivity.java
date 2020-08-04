@@ -56,7 +56,7 @@ public class FlashLightActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isflashon){
                     if (chknum==1){
-                        for (int i=0;i<=2000;i++){
+                        for (int i=0;i<=20;i++){
                             TurnOffFlashlights();
                             TurnOnFlashlights();
                         }

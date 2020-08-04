@@ -42,4 +42,10 @@ public class My_view_page_adapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 3;
     }
+
+
+
+
+
+
 }
