@@ -64,27 +64,12 @@
                     android:background="@null"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/small_cheshmak_off" />
+                    android:src="@drawable/small_cheshmak_off"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginRight="40dp"
+                    />
 
-                <ImageButton
-                    android:id="@+id/img_lock"
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@null"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/small_unlock" />
 
-                <ImageButton
-                    android:id="@+id/img_sound_off_on"
-                    android:layout_width="46dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@null"
-                    android:contentDescription="@null"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/small_sound_off" />
 
                 <ImageButton
                     android:id="@+id/img_help"

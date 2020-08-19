@@ -1,14 +1,21 @@
 package com.example.amirnovinfar.Activity;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.MediaPlayer;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -23,11 +30,13 @@ public class FlashLightActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     int chknum = 0;
     Camera camera;
+    TextView battery_status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_light);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setupviews();
         issupportedflash();
         isflashon = false;
@@ -83,11 +92,17 @@ public class FlashLightActivity extends AppCompatActivity {
                 }
             }
         });
+        IntentFilter intentFilter=new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(broadcastReceiver,intentFilter);
+
     }
 
     private void setupviews() {
         imageButton = findViewById(R.id.btn_switch);
         img_cheshmak = findViewById(R.id.img_cheshmak);
+        battery_status = findViewById(R.id.battery_status);
+
+
     }
 
     private void issupportedflash() {
@@ -234,5 +249,13 @@ public class FlashLightActivity extends AppCompatActivity {
             Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    private BroadcastReceiver broadcastReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int darsad=intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
+            battery_status.setText(String.valueOf(darsad));
+        }
+    };
 }
 
