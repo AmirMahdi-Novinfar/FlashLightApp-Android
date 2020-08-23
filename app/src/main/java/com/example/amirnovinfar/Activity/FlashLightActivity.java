@@ -15,6 +15,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.example.amirnovinfar.R;
+import com.sdsmdg.tastytoast.TastyToast;
 
 public class FlashLightActivity extends AppCompatActivity {
     AppCompatImageButton imageButton, img_cheshmak;
@@ -31,6 +34,7 @@ public class FlashLightActivity extends AppCompatActivity {
     int chknum = 0;
     Camera camera;
     TextView battery_status;
+    ImageView img_battery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +73,9 @@ public class FlashLightActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-
                 if (isflashon) {
-                    if (chknum == 1) {
-                        for (int i = 0; i <= 20; i++) {
-                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                    for (int i = 0; i <10; i++) {
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                                 TurnOffFlashlights();
                                 TurnOnFlashlights();
                             } else {
@@ -81,15 +83,15 @@ public class FlashLightActivity extends AppCompatActivity {
                                 TurnOnFlashlightsofapilast();
                             }
 
-                        }
-                        img_cheshmak.setImageResource(R.drawable.small_cheshmak_off);
-                        chknum = 0;
-                    } else {
-                        img_cheshmak.setImageResource(R.drawable.small_cheshmak_off);
-                        chknum = 1;
-                        img_cheshmak.setImageResource(R.drawable.small_cheshmak);
                     }
                 }
+
+                else {
+                    TastyToast.makeText(FlashLightActivity.this,"لطفا چراغ قوه را روشن کنید.",TastyToast.LENGTH_LONG,TastyToast.ERROR).show();
+                }
+
+
+
             }
         });
         IntentFilter intentFilter=new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -101,6 +103,7 @@ public class FlashLightActivity extends AppCompatActivity {
         imageButton = findViewById(R.id.btn_switch);
         img_cheshmak = findViewById(R.id.img_cheshmak);
         battery_status = findViewById(R.id.battery_status);
+        img_battery = findViewById(R.id.img_battery);
 
 
     }
@@ -254,7 +257,41 @@ public class FlashLightActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             int darsad=intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
-            battery_status.setText(String.valueOf(darsad));
+            battery_status.setText(String.valueOf(darsad) + "%");
+            if (darsad==100){
+                img_battery.setImageResource(R.drawable.ic_battery_full);
+            }else if (darsad >= 1 && darsad <= 15){
+                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                battery_status.append("\n باطری شما ضعیف است");
+
+            }else if (darsad >= 20 && darsad <= 29){
+                img_battery.setImageResource(R.drawable.ic_battery_20);
+
+            }else if (darsad >= 30 && darsad <= 39){
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            }else if (darsad >= 40 && darsad <= 49){
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            } else if (darsad >= 50 && darsad <= 59){
+                img_battery.setImageResource(R.drawable.ic_battery_50);
+
+            }else if (darsad >= 60 && darsad <= 69){
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            }else if (darsad >= 70 && darsad <= 79){
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 80 && darsad <= 89){
+                img_battery.setImageResource(R.drawable.ic_battery_80);
+
+            }else if (darsad >= 90 && darsad <= 99){
+                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+            }
+
+
+
+
         }
     };
 }
