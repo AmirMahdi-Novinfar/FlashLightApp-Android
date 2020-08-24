@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -23,8 +24,10 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.amirnovinfar.R;
+import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
 
 public class FlashLightActivity extends AppCompatActivity {
@@ -34,12 +37,15 @@ public class FlashLightActivity extends AppCompatActivity {
     int chknum = 0;
     Camera camera;
     TextView battery_status;
-    ImageView img_battery;
+    ImageView img_battery,open_drawer;
+    DrawerLayout drawerlayout1;
+    NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash_light);
+        setContentView(R.layout.navdrawer);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setupviews();
         issupportedflash();
@@ -94,6 +100,12 @@ public class FlashLightActivity extends AppCompatActivity {
 
             }
         });
+        open_drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerlayout1.openDrawer(Gravity.RIGHT);
+            }
+        });
         IntentFilter intentFilter=new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(broadcastReceiver,intentFilter);
 
@@ -104,6 +116,10 @@ public class FlashLightActivity extends AppCompatActivity {
         img_cheshmak = findViewById(R.id.img_cheshmak);
         battery_status = findViewById(R.id.battery_status);
         img_battery = findViewById(R.id.img_battery);
+        drawerlayout1 = findViewById(R.id.drawerlayout1);
+        navigationView = findViewById(R.id.nav_main);
+        open_drawer = findViewById(R.id.open_drawer);
+
 
 
     }

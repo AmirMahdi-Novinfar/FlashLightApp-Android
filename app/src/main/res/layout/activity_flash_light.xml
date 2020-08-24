@@ -14,6 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:gravity="center">
 
+
         <ImageView
             android:id="@+id/setting"
             android:layout_width="0dp"
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".1"
             android:src="@drawable/ic_menu"
+
             android:tint="#fff" />
 
 
@@ -118,4 +120,5 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+
 </LinearLayout>
