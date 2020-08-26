@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="راحت و دوست داشتنی"
+        android:fontFamily="@font/aviny"
         android:textSize="40sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"></TextView>
@@ -27,7 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textdescription"
-        android:textSize="17sp"
+        android:fontFamily="@font/aviny"
+        android:textSize="27sp"
         android:layout_marginTop="40dp"
         android:text="این برنامه بسیار راحت بوده و هر فردی میتواند با این برنامه کار کند."></TextView>
 

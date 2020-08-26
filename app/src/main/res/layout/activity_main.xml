@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity"
     android:id="@+id/sss"
+    android:background="#2b2b2b"
     android:orientation="horizontal">
 
 
@@ -14,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp">
@@ -28,8 +28,9 @@
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+       >
 
-       ></LinearLayout>
+    </LinearLayout>
 
    <View
            android:layout_width="match_parent"
@@ -42,10 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="بعدی"
-        android:textSize="35sp"
+        android:textSize="25sp"
         android:textColor="@android:color/white"
         android:background="@null"
         android:id="@+id/btn_next"
+        android:fontFamily="@font/aviny"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true">
 
@@ -58,8 +60,8 @@
         android:textColor="@android:color/white"
         android:background="@null"
         android:id="@+id/btn_per"
-
-        android:textSize="35sp"
+        android:fontFamily="@font/aviny"
+        android:textSize="25sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
 

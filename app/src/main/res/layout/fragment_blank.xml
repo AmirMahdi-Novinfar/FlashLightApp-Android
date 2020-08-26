@@ -19,7 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="برنامه کاربردی"
-        android:textSize="30sp"
+        android:textSize="40sp"
+        android:fontFamily="@font/aviny"
         android:textStyle="bold"
         android:layout_marginTop="40dp"></TextView>
 
@@ -29,7 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textdescription"
-        android:textSize="14sp"
+        android:fontFamily="@font/aviny"
+        android:textSize="27sp"
         android:layout_marginTop="40dp"
         android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده شود"></TextView>
 

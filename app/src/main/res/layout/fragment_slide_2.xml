@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="سبک و قابل کارکرد"
-        android:textSize="30sp"
+        android:fontFamily="@font/aviny"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"></TextView>
 
@@ -28,7 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textdescription"
-        android:textSize="14sp"
+        android:fontFamily="@font/aviny"
+        android:textSize="27sp"
         android:layout_marginTop="40dp"
         android:text="این برنامه بسیار سبک بوده و هیچ منبع زیادی از تلفن همراه شما را نمیگیرد"></TextView>
 
