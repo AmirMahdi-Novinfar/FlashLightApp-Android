@@ -5,11 +5,14 @@
     package="com.example.amirnovinfar">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <permission android:name="android.permission.CAMERA" />
     <permission android:name="android.permission.FLASHLIGHT" />
-    <permission android:name="android.permission.WRITE_SETTINGS"></permission>
+    <permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <uses-feature android:name="android.hardware.camera" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -20,15 +23,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activity.Setting"></activity>
+        <activity android:name=".Activity.Call_Us" />
         <activity android:name=".Activity.SpplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activity.FlashLightActivity" />
-        <activity android:name=".Activity.MainActivity">
-        </activity>
+        <activity android:name=".Activity.MainActivity" />
     </application>
 
 </manifest>
