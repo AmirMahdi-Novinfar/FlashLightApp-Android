@@ -51,10 +51,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center">
+
             <LinearLayout
                 android:id="@+id/tap_target"
-                android:layout_width="wrap_content"
+                android:layout_width="53dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
                 android:gravity="left"
                 android:orientation="vertical">
 
@@ -63,14 +65,11 @@
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="40dp"
                     android:background="@null"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/small_cheshmak"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginRight="40dp"
-                    />
-
+                    android:src="@drawable/small_cheshmak" />
 
 
                 <ImageButton
@@ -99,8 +98,10 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="11dp"
                 android:gravity="center"
+                android:id="@+id/layoyt_battry"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -116,6 +117,14 @@
                     android:textColor="#fff"
                     android:layout_marginTop="15dp"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/battery_status2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#fff"
+                    android:textSize="13sp" />
 
             </LinearLayout>
         </LinearLayout>
