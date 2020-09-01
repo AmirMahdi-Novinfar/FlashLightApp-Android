@@ -5,16 +5,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context="com.example.amirnovinfar.Activity.Setting">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_setting"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#2b2b2b">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="220dp"
+            android:fontFamily="@font/aviny"
+            android:text="تنظیمات"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/img_back_setting"
+            android:src="@drawable/ic_arrow_forward_black_24dp">
+
+        </ImageView>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/txt_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_setting"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="@font/aviny"
+        android:pointerIcon="arrow"
+        android:text="تنظیم اندازه روشنایی صفحه نمایش"
+        android:textSize="23sp"></TextView>
+    <TextView
+        android:id="@+id/txt_setting2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/change_noor"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="@font/aviny"
+        android:pointerIcon="arrow"
+        android:text="تنظیم خاموش شدن صفحه"
+        android:textSize="23sp"></TextView>
+
     <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/change_noor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/change_noor"
+        android:layout_below="@+id/txt_setting"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:max="255"></androidx.appcompat.widget.AppCompatSeekBar>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_setting2"
         android:layout_marginTop="30dp"
-        android:max="255"
-        android:indeterminate="false"
-        android:layout_margin="30dp"
-       ></androidx.appcompat.widget.AppCompatSeekBar>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layoutDirection="rtl"
+        android:textOff="با خاموش شدن این گزینه باعث می شود صفحه نمایش شما در این برنامه بعد از مدت خاصی خاموش شود"
+        android:textOn="با روشن شدن این گزینه باعث می شود صفحه نمایش شما در این برنامه تا همیشه روشن بماد و مانع خاموش شدن تلفن شما می شود "
+        android:text="روشن ماندن صفحه نمایش" />
+
 
 </RelativeLayout>
