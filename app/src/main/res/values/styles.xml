@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+        <style name="Help">
+            <item name="android:textColor">@android:color/white</item>
+            <item name="android:textSize">37sp</item>
+            <item name="android:fontFamily">@font/aviny</item>
+
+    </style>
+
 </resources>
