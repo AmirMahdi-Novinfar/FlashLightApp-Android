@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#2b2b2b"
     android:orientation="vertical"
+    android:layoutDirection="ltr"
     tools:context="com.example.amirnovinfar.Activity.FlashLightActivity">
 
 
@@ -16,10 +17,10 @@
 
 
         <ImageView
-            android:id="@+id/setting"
+            android:id="@+id/setting_toolbar_FlashLight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".1"
+            android:layout_weight=".2"
             android:src="@drawable/ic_settings_toolbar"
             android:tint="#fff" />
 

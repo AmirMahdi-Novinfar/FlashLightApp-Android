@@ -26,19 +26,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.transition.Slide;
-
 import com.example.amirnovinfar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
-
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -49,12 +44,14 @@ public class FlashLightActivity extends AppCompatActivity {
     MediaPlayer mediaPlayer;
     int chknum = 0;
     Camera camera;
-    TextView battery_status, battery_status2;
-    ImageView img_battery, open_drawer, img_help, setting;
+    TextView battery_status, battery_status2,setting;
+    ImageView img_battery, open_drawer, img_help, setting_FlashLight;
     DrawerLayout drawerlayout1;
     NavigationView navigationView;
     Notification.Builder compat;
     LinearLayout linearLayout;
+    NotificationManager manager;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -62,6 +59,7 @@ public class FlashLightActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navdrawer);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setupviews();
         isflashon = false;
@@ -127,7 +125,6 @@ public class FlashLightActivity extends AppCompatActivity {
         });
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(broadcastReceiver, intentFilter);
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -147,6 +144,14 @@ public class FlashLightActivity extends AppCompatActivity {
                 return true;
             }
         });
+        manager.cancel(0);
+
+        setting_FlashLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FlashLightActivity.this,Setting.class));
+            }
+        });
 
 
     }
@@ -161,8 +166,10 @@ public class FlashLightActivity extends AppCompatActivity {
         open_drawer = findViewById(R.id.open_drawer);
         battery_status2 = findViewById(R.id.battery_status2);
         img_help = findViewById(R.id.img_help);
-        setting = findViewById(R.id.setting);
         linearLayout = findViewById(R.id.layoyt_battry);
+        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        setting_FlashLight =  findViewById(R.id.setting_toolbar_FlashLight);
+
 
 
     }
@@ -311,7 +318,6 @@ public class FlashLightActivity extends AppCompatActivity {
             playbtnsound();
 
         } catch (Exception e) {
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -351,9 +357,14 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onStop() {
+        super.onStop();
         CreateNotification();
-        compat.setAutoCancel(false);
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(0, compat.build());
     }
 
@@ -373,7 +384,6 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.cancel(0);
     }
 
