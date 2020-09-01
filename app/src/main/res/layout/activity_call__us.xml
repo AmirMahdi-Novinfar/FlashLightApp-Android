@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_of_call"
-    android:orientation="vertical"
+    android:layoutDirection="ltr"
     tools:context="com.example.amirnovinfar.Activity.Call_Us">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="25dp"
-        android:text="تماس باما"
+        android:layout_alignParentTop="true"
         android:fontFamily="@font/aviny"
+        android:text="تماس باما"
+        android:layout_marginLeft="150dp"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
-
-        >
+        android:textSize="40sp">
 
     </TextView>
 
@@ -26,34 +25,45 @@
         android:id="@+id/edt_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="90dp"
         android:hint="موضوع خود را وارد کنید"
         android:maxHeight="2dp"
-
         android:maxLines="2"></EditText>
+
     <EditText
         android:id="@+id/edt_body"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="20dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/edt_subject"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
         android:hint="پیام خود را وارد کنید"></EditText>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="160dp"
-        android:text="ارسال"
         android:id="@+id/btn_send_payam"
-        android:fontFamily="@font/aviny"
-        android:textSize="30sp"></Button>
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="150dp"
-        android:text="تماس با تلفن"
-        android:id="@+id/connect_via_tel"
+        android:layout_below="@id/edt_body"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/aviny"
+        android:text="ارسال"
         android:textSize="30sp"></Button>
-</LinearLayout>
+
+    <Button
+        android:id="@+id/connect_via_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_send_payam"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/aviny"
+        android:text="تماس با تلفن"
+        android:textSize="30sp"></Button>
+
+</RelativeLayout>

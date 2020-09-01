@@ -18,7 +18,7 @@ public class Call_Us extends AppCompatActivity {
 
     EditText subject, body;
     Button send_btn,connect_via_tel;
-    ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,8 @@ public class Call_Us extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("انتخاب کنید");
                 builder.setIcon(R.drawable.selectlogo);
-                builder.setMessage("از گزینه های برای ارباط استفاده کنید");
-                builder.setPositiveButton("ارتباز با ایمیل", new DialogInterface.OnClickListener() {
+                builder.setMessage("از گزینه های برای ارتباط استفاده کنید");
+                builder.setPositiveButton("ارتباط با ایمیل", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         try {
