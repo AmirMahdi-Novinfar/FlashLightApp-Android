@@ -68,6 +68,9 @@
         android:text="تنظیم خاموش شدن صفحه"
         android:textSize="23sp"></TextView>
 
+
+
+
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/change_noor"
         android:layout_width="match_parent"
@@ -79,18 +82,7 @@
         android:layout_marginTop="20dp"
         android:max="255"></androidx.appcompat.widget.AppCompatSeekBar>
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_setting2"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layoutDirection="rtl"
-        android:textOff="با خاموش شدن این گزینه باعث می شود صفحه نمایش شما در این برنامه بعد از مدت خاصی خاموش شود"
-        android:textOn="با روشن شدن این گزینه باعث می شود صفحه نمایش شما در این برنامه تا همیشه روشن بماد و مانع خاموش شدن تلفن شما می شود "
-        android:text="روشن ماندن صفحه نمایش" />
+
 
 
 </RelativeLayout>

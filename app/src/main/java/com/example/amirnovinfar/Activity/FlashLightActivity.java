@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Camera;
@@ -26,66 +27,109 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.amirnovinfar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
+
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
 
 public class FlashLightActivity extends AppCompatActivity {
     AppCompatImageButton imageButton, img_cheshmak;
-    boolean hasflash, isflashon;
+    boolean hasflash, isflashon, iscamerapermission;
     MediaPlayer mediaPlayer;
     int chknum = 0;
     Camera camera;
-    TextView battery_status, battery_status2,setting;
+    TextView battery_status, battery_status2, setting;
     ImageView img_battery, open_drawer, img_help, setting_FlashLight;
     DrawerLayout drawerlayout1;
     NavigationView navigationView;
     Notification.Builder compat;
     LinearLayout linearLayout;
     NotificationManager manager;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+            battery_status.setText(String.valueOf(darsad) + "%");
+            if (darsad == 100) {
+                img_battery.setImageResource(R.drawable.ic_battery_full);
+            } else if (darsad >= 1 && darsad <= 15) {
+                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                battery_status2.setText("باطری شما ضعیف است");
+            } else if (darsad >= 20 && darsad <= 29) {
+                img_battery.setImageResource(R.drawable.ic_battery_20);
 
+            } else if (darsad >= 30 && darsad <= 39) {
+                img_battery.setImageResource(R.drawable.ic_battery_30);
 
+            } else if (darsad >= 40 && darsad <= 49) {
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            } else if (darsad >= 50 && darsad <= 59) {
+                img_battery.setImageResource(R.drawable.ic_battery_50);
+
+            } else if (darsad >= 60 && darsad <= 69) {
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 70 && darsad <= 79) {
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 80 && darsad <= 89) {
+                img_battery.setImageResource(R.drawable.ic_battery_80);
+            } else if (darsad >= 90 && darsad <= 99) {
+                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+            }
+        }
+    };
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navdrawer);
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setupviews();
+        GetPermission();
         isflashon = false;
+        iscamerapermission=false;
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.cancel(0);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-                    if (isflashon == false) {
-                        TurnOnFlashlights();
-                    } else if (isflashon == true) {
-                        TurnOffFlashlights();
-                        imageButton.setImageResource(R.drawable.main_off);
-                    }
+                SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
+                boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
+                if (iscamper) {
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                        if (isflashon == false) {
+                            TurnOnFlashlights();
+                        } else if (isflashon == true) {
+                            TurnOffFlashlights();
+                            imageButton.setImageResource(R.drawable.main_off);
+                        }
 
-                } else {
+                    } else {
 
-                    if (isflashon == false) {
-                        TurnOnFlashlightsofapilast();
-                    } else if (isflashon == true) {
-                        TurnOffFlashlightsofapilast();
-                        imageButton.setImageResource(R.drawable.main_off);
+                        if (isflashon == false) {
+                            TurnOnFlashlightsofapilast();
+                        } else if (isflashon == true) {
+                            TurnOffFlashlightsofapilast();
+                            imageButton.setImageResource(R.drawable.main_off);
+                        }
                     }
-                }
+                }else {GetPermission();}
 
             }
         });
@@ -121,7 +165,7 @@ public class FlashLightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showinfo();
-              }
+            }
         });
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(broadcastReceiver, intentFilter);
@@ -138,22 +182,19 @@ public class FlashLightActivity extends AppCompatActivity {
                 } else if (id == R.id.setting) {
                     startActivity(new Intent(FlashLightActivity.this, Setting.class));
                     drawerlayout1.closeDrawers();
-                }else if (id == R.id.quit) {
-                   finish();
+                } else if (id == R.id.quit) {
+                    finish();
                 }
                 return true;
             }
         });
         manager.cancel(0);
-
         setting_FlashLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FlashLightActivity.this,Setting.class));
+                startActivity(new Intent(FlashLightActivity.this, Setting.class));
             }
         });
-
-
     }
 
     private void setupviews() {
@@ -168,8 +209,7 @@ public class FlashLightActivity extends AppCompatActivity {
         img_help = findViewById(R.id.img_help);
         linearLayout = findViewById(R.id.layoyt_battry);
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        setting_FlashLight =  findViewById(R.id.setting_toolbar_FlashLight);
-
+        setting_FlashLight = findViewById(R.id.setting_toolbar_FlashLight);
 
 
     }
@@ -185,35 +225,35 @@ public class FlashLightActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void TurnOnFlashlights() {
-        if (issupportedflash()) {
-            final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
-            try {
-                String camid = cameraManager.getCameraIdList()[0];
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    cameraManager.setTorchMode(camid, true);
-                    isflashon = true;
+            if (issupportedflash()) {
+                final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
+                try {
+                    String camid = cameraManager.getCameraIdList()[0];
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        cameraManager.setTorchMode(camid, true);
+                        isflashon = true;
+                    }
+
+                    Changebackground_btn_switch();
+                    playbtnsound();
+
+                } catch (Exception e) {
+                    Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                Changebackground_btn_switch();
-                playbtnsound();
+            } else {
 
-            } catch (Exception e) {
-                Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
+                alertDialog.setTitle("خطا!");
+                alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+                alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                alertDialog.show();
             }
-
-        } else {
-
-            AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
-            alertDialog.setTitle("خطا!");
-            alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
-            alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
-                }
-            });
-            alertDialog.show();
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -296,13 +336,18 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-            TurnOnFlashlights();
-
-        } else {
+        SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
+        boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
+            if (Build.VERSION.SDK_INT==Build.VERSION_CODES.Q){
+                if (iscamper){
+                    TurnOnFlashlights();
+                }
+            }else {
             TurnOnFlashlightsofapilast();
         }
+
+
+
 
     }
 
@@ -387,79 +432,72 @@ public class FlashLightActivity extends AppCompatActivity {
         manager.cancel(0);
     }
 
-     void showinfo() {
-       FancyShowCaseView view1=new FancyShowCaseView.Builder(this)
-               .focusOn(open_drawer)
-               .title("استفاده از امکانات دیگر در برنامه")
-               .titleStyle(R.style.Help,Gravity.CENTER_HORIZONTAL)
-               .build();
-         FancyShowCaseView view2=new FancyShowCaseView.Builder(this)
-                 .focusOn(setting)
-                 .title("تنظیمات برنامه")
-                 .titleStyle(R.style.Help,Gravity.CENTER_HORIZONTAL)
-                 .build();
-         FancyShowCaseView view3=new FancyShowCaseView.Builder(this)
-                 .focusOn(imageButton)
-                 .title("روشن کردن چراغ قوه ")
-                 .titleStyle(R.style.Help,Gravity.START)
-                 .build();
-         FancyShowCaseView view4=new FancyShowCaseView.Builder(this)
-                 .focusOn(img_cheshmak)
-                 .title("استفاه از حالت چشمک زن چراغ قوه")
-                 .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
-                 .build();
+    void showinfo() {
+        FancyShowCaseView view1 = new FancyShowCaseView.Builder(this)
+                .focusOn(open_drawer)
+                .title("استفاده از امکانات دیگر در برنامه")
+                .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
+                .build();
+        FancyShowCaseView view2 = new FancyShowCaseView.Builder(this)
+                .focusOn(setting)
+                .title("تنظیمات برنامه")
+                .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
+                .build();
+        FancyShowCaseView view3 = new FancyShowCaseView.Builder(this)
+                .focusOn(imageButton)
+                .title("روشن کردن چراغ قوه ")
+                .titleStyle(R.style.Help, Gravity.START)
+                .build();
+        FancyShowCaseView view4 = new FancyShowCaseView.Builder(this)
+                .focusOn(img_cheshmak)
+                .title("استفاه از حالت چشمک زن چراغ قوه")
+                .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
+                .build();
 
-         FancyShowCaseView view5=new FancyShowCaseView.Builder(this)
-                 .focusOn(linearLayout)
-                 .title("وضعیت باطری دستگاه")
-                 .titleStyle(R.style.Help, Gravity.BOTTOM)
-                 .focusShape(FocusShape.ROUNDED_RECTANGLE)
-                 .build();
-         FancyShowCaseQueue queue=new FancyShowCaseQueue();
-         queue.add(view3);
-         queue.add(view4);
-         queue.add(view2);
-         queue.add(view1);
-         queue.add(view5);
-         queue.show();
+        FancyShowCaseView view5 = new FancyShowCaseView.Builder(this)
+                .focusOn(linearLayout)
+                .title("وضعیت باطری دستگاه")
+                .titleStyle(R.style.Help, Gravity.BOTTOM)
+                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                .build();
+        FancyShowCaseQueue queue = new FancyShowCaseQueue();
+        queue.add(view3);
+        queue.add(view4);
+        queue.add(view2);
+        queue.add(view1);
+        queue.add(view5);
+        queue.show();
 
 
-     }
+    }
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            battery_status.setText(String.valueOf(darsad) + "%");
-            if (darsad == 100) {
-                img_battery.setImageResource(R.drawable.ic_battery_full);
-            } else if (darsad >= 1 && darsad <= 15) {
-                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
-                battery_status2.setText("باطری شما ضعیف است");
-            } else if (darsad >= 20 && darsad <= 29) {
-                img_battery.setImageResource(R.drawable.ic_battery_20);
-
-            } else if (darsad >= 30 && darsad <= 39) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
-
-            } else if (darsad >= 40 && darsad <= 49) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
-
-            } else if (darsad >= 50 && darsad <= 59) {
-                img_battery.setImageResource(R.drawable.ic_battery_50);
-
-            } else if (darsad >= 60 && darsad <= 69) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
-
-            } else if (darsad >= 70 && darsad <= 79) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
-
-            } else if (darsad >= 80 && darsad <= 89) {
-                img_battery.setImageResource(R.drawable.ic_battery_80);
-            } else if (darsad >= 90 && darsad <= 99) {
-                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+    private void GetPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 1);
             }
+
         }
-    };
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    iscamerapermission=true;
+                    SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.putBoolean("ispermissioncamera",iscamerapermission);
+                    editor.apply();
+                    TurnOnFlashlights();
+                }
+                    break;
+        }
+
+    }
 }
 

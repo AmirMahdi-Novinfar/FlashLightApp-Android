@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -78,7 +77,7 @@ public class Setting extends AppCompatActivity {
 
                         } else {
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                            context.startActivity(intent);
+                            startActivity(intent);
                         }
 
                     } else {
