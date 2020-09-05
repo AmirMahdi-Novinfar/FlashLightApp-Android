@@ -82,6 +82,20 @@
         android:layout_marginTop="20dp"
         android:max="255"></androidx.appcompat.widget.AppCompatSeekBar>
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="match_parent"
+        android:id="@+id/sound_on_off"
+        android:layout_height="10dp"
+        android:layout_below="@id/txt_setting2"
+        android:layout_marginTop="20dp"
+        android:text= "پخش صدای کلید چراغ قوه"
+        android:contentDescription="پخش صدای در حالت چراغ قوه"
+        android:layoutDirection="rtl"
+        android:checked="true">
+
+    </androidx.appcompat.widget.SwitchCompat>
+
+
 
 
 

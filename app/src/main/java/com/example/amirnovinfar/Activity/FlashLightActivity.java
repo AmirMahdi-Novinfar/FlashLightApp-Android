@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -46,7 +47,7 @@ import me.toptas.fancyshowcase.FocusShape;
 
 public class FlashLightActivity extends AppCompatActivity {
     AppCompatImageButton imageButton, img_cheshmak;
-    boolean hasflash, isflashon, iscamerapermission;
+    boolean hasflash, isflashon, iscamerapermission,sound;
     MediaPlayer mediaPlayer;
     int chknum = 0;
     Camera camera;
@@ -57,41 +58,9 @@ public class FlashLightActivity extends AppCompatActivity {
     Notification.Builder compat;
     LinearLayout linearLayout;
     NotificationManager manager;
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            battery_status.setText(String.valueOf(darsad) + "%");
-            if (darsad == 100) {
-                img_battery.setImageResource(R.drawable.ic_battery_full);
-            } else if (darsad >= 1 && darsad <= 15) {
-                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
-                battery_status2.setText("باطری شما ضعیف است");
-            } else if (darsad >= 20 && darsad <= 29) {
-                img_battery.setImageResource(R.drawable.ic_battery_20);
+    SharedPreferences sharedPreferences;
 
-            } else if (darsad >= 30 && darsad <= 39) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
-
-            } else if (darsad >= 40 && darsad <= 49) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
-
-            } else if (darsad >= 50 && darsad <= 59) {
-                img_battery.setImageResource(R.drawable.ic_battery_50);
-
-            } else if (darsad >= 60 && darsad <= 69) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
-
-            } else if (darsad >= 70 && darsad <= 79) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
-
-            } else if (darsad >= 80 && darsad <= 89) {
-                img_battery.setImageResource(R.drawable.ic_battery_80);
-            } else if (darsad >= 90 && darsad <= 99) {
-                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
-            }
-        }
-    };
+    boolean amir2;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -111,14 +80,15 @@ public class FlashLightActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
                 boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
-                if (iscamper) {
                     if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-                        if (isflashon == false) {
-                            TurnOnFlashlights();
-                        } else if (isflashon == true) {
-                            TurnOffFlashlights();
-                            imageButton.setImageResource(R.drawable.main_off);
-                        }
+                        if (iscamper) {
+                            if (isflashon == false) {
+                                TurnOnFlashlights();
+                            } else if (isflashon == true) {
+                                TurnOffFlashlights();
+                                imageButton.setImageResource(R.drawable.main_off);
+                            }
+                        }else {GetPermission();}
 
                     } else {
 
@@ -128,8 +98,8 @@ public class FlashLightActivity extends AppCompatActivity {
                             TurnOffFlashlightsofapilast();
                             imageButton.setImageResource(R.drawable.main_off);
                         }
-                    }
-                }else {GetPermission();}
+
+                }
 
             }
         });
@@ -195,6 +165,9 @@ public class FlashLightActivity extends AppCompatActivity {
                 startActivity(new Intent(FlashLightActivity.this, Setting.class));
             }
         });
+
+
+
     }
 
     private void setupviews() {
@@ -210,6 +183,10 @@ public class FlashLightActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.layoyt_battry);
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         setting_FlashLight = findViewById(R.id.setting_toolbar_FlashLight);
+       sharedPreferences=getSharedPreferences("soundamir",MODE_PRIVATE);
+
+
+
 
 
     }
@@ -235,7 +212,9 @@ public class FlashLightActivity extends AppCompatActivity {
                     }
 
                     Changebackground_btn_switch();
-                    playbtnsound();
+                    if (amir2==true){
+                        playbtnsound();
+                    }
 
                 } catch (Exception e) {
                     Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
@@ -260,6 +239,7 @@ public class FlashLightActivity extends AppCompatActivity {
     private void TurnOffFlashlights() {
         if (issupportedflash()) {
             isflashon = false;
+
             final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
             try {
                 String camid = cameraManager.getCameraIdList()[0];
@@ -267,11 +247,12 @@ public class FlashLightActivity extends AppCompatActivity {
                     cameraManager.setTorchMode(camid, false);
                 }
                 Changebackground_btn_switch();
-                playbtnsound();
+                if (amir2==true){
+                    playbtnsound();
+                }
 
             } catch (Exception e) {
                 Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
             }
         } else {
 
@@ -336,6 +317,7 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        amir2=sharedPreferences.getBoolean("soundvalue",true);
         SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
         boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
             if (Build.VERSION.SDK_INT==Build.VERSION_CODES.Q){
@@ -360,35 +342,28 @@ public class FlashLightActivity extends AppCompatActivity {
             camera.startPreview();
             isflashon = true;
             Changebackground_btn_switch();
-            playbtnsound();
-
+            if (amir2==true){
+                playbtnsound();
+            }
         } catch (Exception e) {
         }
     }
 
     private void TurnOffFlashlightsofapilast() {
-        if (issupportedflash()) {
+
             try {
                 camera.stopPreview();
                 isflashon = false;
                 camera.release();
                 camera = null;
+                if (amir2==true){
+                    playbtnsound();
+                }
 
             } catch (Exception e) {
                 Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
-        } else {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(FlashLightActivity.this);
-            alertDialog.setTitle("خطا!");
-            alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
-            alertDialog.setPositiveButton("خروج", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
-                }
-            });
-            alertDialog.show();
-        }
+
     }
 
     private void setaboutusdialog() {
@@ -402,6 +377,8 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        amir2=sharedPreferences.getBoolean("soundvalue",true);
+
 
     }
 
@@ -479,6 +456,44 @@ public class FlashLightActivity extends AppCompatActivity {
 
         }
     }
+
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+            battery_status.setText(String.valueOf(darsad) + "%");
+            if (darsad == 100) {
+                img_battery.setImageResource(R.drawable.ic_battery_full);
+            } else if (darsad >= 1 && darsad <= 15) {
+                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                battery_status2.setText("باطری شما ضعیف است");
+            } else if (darsad >= 20 && darsad <= 29) {
+                img_battery.setImageResource(R.drawable.ic_battery_20);
+
+            } else if (darsad >= 30 && darsad <= 39) {
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            } else if (darsad >= 40 && darsad <= 49) {
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            } else if (darsad >= 50 && darsad <= 59) {
+                img_battery.setImageResource(R.drawable.ic_battery_50);
+
+            } else if (darsad >= 60 && darsad <= 69) {
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 70 && darsad <= 79) {
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 80 && darsad <= 89) {
+                img_battery.setImageResource(R.drawable.ic_battery_80);
+            } else if (darsad >= 90 && darsad <= 99) {
+                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+            }
+        }
+    };
+
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override

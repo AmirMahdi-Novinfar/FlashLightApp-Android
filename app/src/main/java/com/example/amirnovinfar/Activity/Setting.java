@@ -2,26 +2,34 @@ package com.example.amirnovinfar.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.amirnovinfar.R;
 
 public class Setting extends AppCompatActivity {
 
+    public static boolean soundon_off;
     SeekBar seekBar;
     int brightness;
     Context context;
     Toolbar toolbar;
     ImageView view;
+    SwitchCompat switchCompat;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,9 @@ public class Setting extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        GETandSETswitchdata();
+
+
     }
 
 
@@ -45,6 +56,8 @@ public class Setting extends AppCompatActivity {
         seekBar = findViewById(R.id.change_noor);
         toolbar = findViewById(R.id.toolbar_setting);
         view = findViewById(R.id.img_back_setting);
+        switchCompat = findViewById(R.id.sound_on_off);
+
 
     }
 
@@ -105,4 +118,30 @@ public class Setting extends AppCompatActivity {
 
 
     }
+
+
+    private void GETandSETswitchdata() {
+        SharedPreferences sharedPreferences=getSharedPreferences("soundamir",MODE_PRIVATE);
+        switchCompat.setChecked(sharedPreferences.getBoolean("soundvalue",true));
+
+        switchCompat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (switchCompat.isChecked()){
+                    SharedPreferences.Editor editor =sharedPreferences.edit();
+                    editor.putBoolean("soundvalue",true);
+                    editor.apply();
+
+                }else {
+                    SharedPreferences.Editor editor =sharedPreferences.edit();
+                    editor.putBoolean("soundvalue",false);
+                    editor.apply();
+                }
+            }
+        });
+
+
+    }
+
+
 }
