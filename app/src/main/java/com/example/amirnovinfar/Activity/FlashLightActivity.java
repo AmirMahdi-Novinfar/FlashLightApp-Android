@@ -27,20 +27,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.example.amirnovinfar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
-
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -59,7 +55,6 @@ public class FlashLightActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     NotificationManager manager;
     SharedPreferences sharedPreferences;
-
     boolean amir2;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -80,7 +75,7 @@ public class FlashLightActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
                 boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
-                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (iscamper) {
                             if (isflashon == false) {
                                 TurnOnFlashlights();
