@@ -1,5 +1,6 @@
 package com.example.amirnovinfar.Activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,7 +26,7 @@ public class Setting extends AppCompatActivity {
     int brightness;
     Context context;
     Toolbar toolbar;
-    ImageView view;
+    ImageView view,call_setting,home_setting,about_setting;
     SwitchCompat switchCompat;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -48,6 +49,31 @@ public class Setting extends AppCompatActivity {
         });
         GETandSETswitchdata();
 
+        home_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this,FlashLightActivity.class));
+                finish();
+            }
+        });
+
+
+        about_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setaboutusdialog();
+            }
+        });
+
+
+        call_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Setting.this,Call_Us.class));
+                finish();
+            }
+        });
+
 
     }
 
@@ -57,6 +83,9 @@ public class Setting extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_setting);
         view = findViewById(R.id.img_back_setting);
         switchCompat = findViewById(R.id.sound_on_off);
+        about_setting = findViewById(R.id.about_setting);
+        call_setting = findViewById(R.id.call_setting);
+        home_setting = findViewById(R.id.home_setting);
 
 
     }
@@ -141,6 +170,13 @@ public class Setting extends AppCompatActivity {
         });
 
 
+    }
+
+    private void setaboutusdialog() {
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.about_us_layout);
+        dialog.show();
     }
 
 

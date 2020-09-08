@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     tools:context="com.example.amirnovinfar.Activity.Setting">
 
+
+    <TextView
+        android:id="@+id/txt_setting2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sound_on_off"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="0dp"
+        android:fontFamily="@font/aviny"
+        android:pointerIcon="arrow"
+        android:text="دسترسی به دیگر صفحه ها"
+        android:textColor="@android:color/black"
+        android:textSize="23sp"></TextView>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_setting"
@@ -17,26 +31,33 @@
         android:layout_alignParentTop="true"
         android:background="#2b2b2b">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="220dp"
-            android:fontFamily="@font/aviny"
-            android:text="تنظیمات"
-            android:textColor="@android:color/white"
-            android:textSize="30sp"></TextView>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:id="@+id/img_back_setting"
-            android:src="@drawable/ic_arrow_forward_black_24dp">
-
-        </ImageView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/img_back_setting"
+                android:fontFamily="@font/aviny"
+                android:text="تنظیمات"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"></TextView>
+
+            <ImageView
+                android:id="@+id/img_back_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow_forward_black_24dp">
+
+            </ImageView>
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
@@ -46,29 +67,14 @@
         android:layout_below="@+id/toolbar_setting"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="26dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="0dp"
         android:fontFamily="@font/aviny"
         android:pointerIcon="arrow"
         android:text="تنظیم اندازه روشنایی صفحه نمایش"
+        android:textColor="@android:color/black"
         android:textSize="23sp"></TextView>
-    <TextView
-        android:id="@+id/txt_setting2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/change_noor"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
-        android:fontFamily="@font/aviny"
-        android:pointerIcon="arrow"
-        android:text="تنظیم خاموش شدن صفحه"
-        android:textSize="23sp"></TextView>
-
-
 
 
     <androidx.appcompat.widget.AppCompatSeekBar
@@ -78,25 +84,56 @@
         android:layout_below="@+id/txt_setting"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="21dp"
         android:max="255"></androidx.appcompat.widget.AppCompatSeekBar>
 
     <androidx.appcompat.widget.SwitchCompat
-        android:layout_width="match_parent"
         android:id="@+id/sound_on_off"
-        android:layout_height="10dp"
-        android:layout_below="@id/txt_setting2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/change_noor"
+        android:layout_margin="20dp"
         android:layout_marginTop="20dp"
-        android:text= "پخش صدای کلید چراغ قوه"
+        android:checked="true"
         android:contentDescription="پخش صدای در حالت چراغ قوه"
+        android:fontFamily="@font/aviny"
         android:layoutDirection="rtl"
-        android:checked="true">
+        android:text="پخش صدای کلید چراغ قوه"
+        android:textSize="19sp">
 
     </androidx.appcompat.widget.SwitchCompat>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_setting2"
+        android:layout_marginTop="30dp"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="120dp"
+            android:id="@+id/home_setting"
+            android:layout_height="110dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/uyun"></ImageView>
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="110dp"
+            android:id="@+id/call_setting"
 
+            android:layout_centerInParent="true"
+            android:src="@drawable/amir"></ImageView>
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="110dp"
+            android:id="@+id/about_setting"
+
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/amir2"></ImageView>
+    </RelativeLayout>
 
 
 </RelativeLayout>
