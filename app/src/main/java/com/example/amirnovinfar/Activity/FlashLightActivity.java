@@ -3,6 +3,7 @@ package com.example.amirnovinfar.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -32,6 +33,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.amirnovinfar.R;
@@ -51,13 +53,10 @@ public class FlashLightActivity extends AppCompatActivity {
     ImageView img_battery, open_drawer, img_help, setting_FlashLight;
     DrawerLayout drawerlayout1;
     NavigationView navigationView;
-    Notification.Builder compat;
     LinearLayout linearLayout;
-    NotificationManager manager;
     SharedPreferences sharedPreferences;
     boolean amir2;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +66,6 @@ public class FlashLightActivity extends AppCompatActivity {
         GetPermission();
         isflashon = false;
         iscamerapermission=false;
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.cancel(0);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
@@ -153,7 +150,6 @@ public class FlashLightActivity extends AppCompatActivity {
                 return true;
             }
         });
-        manager.cancel(0);
         setting_FlashLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +172,6 @@ public class FlashLightActivity extends AppCompatActivity {
         battery_status2 = findViewById(R.id.battery_status2);
         img_help = findViewById(R.id.img_help);
         linearLayout = findViewById(R.id.layoyt_battry);
-        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         setting_FlashLight = findViewById(R.id.setting_toolbar_FlashLight);
        sharedPreferences=getSharedPreferences("soundamir",MODE_PRIVATE);
 
@@ -296,16 +291,7 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (hasflash) {
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-                TurnOnFlashlights();
 
-            } else {
-                TurnOnFlashlightsofapilast();
-            }
-
-
-        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -373,6 +359,7 @@ public class FlashLightActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         amir2=sharedPreferences.getBoolean("soundvalue",true);
+        CreateNotification();
 
 
     }
@@ -381,27 +368,37 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        CreateNotification();
-        manager.notify(0, compat.build());
+
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void CreateNotification() {
+        String chanellid = "amir1";
         Intent intent = new Intent(FlashLightActivity.this, FlashLightActivity.class);
-        PendingIntent intent1 = PendingIntent.getActivity(FlashLightActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        compat = new Notification.Builder(this);
-        compat.setSmallIcon(R.drawable.ic_highlight_black_24dp);
-        compat.setContentText("برنامه چراغ قوه در حال اجرا است");
-        compat.setColor(Color.RED);
-        compat.setContentTitle("برنامه چراغ قوه");
-        Notification.Action action = new Notification.Action(R.drawable.ic_arrow_back, "بازگشت به برنامه", intent1);
-        compat.addAction(action);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(this, chanellid);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationCompat.Action action = new NotificationCompat.Action(R.drawable.ic_settings, "بازگشت به برنامه", pendingIntent);
+        notification.setSmallIcon(R.drawable.ic_arrow_back);
+        notification.setContentText("برنامه چراغ قوه در حال اجرا است");
+        notification.setContentTitle("برنامه چراغ قوه");
+        notification.addAction(action);
+        notification.setAutoCancel(true);
+        notification.setColor(Color.RED);
+        notification.build();
+
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("amir199", chanellid, NotificationManager.IMPORTANCE_HIGH);
+            notification.setChannelId(chanellid);
+            manager.createNotificationChannel(channel);
+        }
+
+        manager.notify(0,notification.build());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        manager.cancel(0);
     }
 
     void showinfo() {
