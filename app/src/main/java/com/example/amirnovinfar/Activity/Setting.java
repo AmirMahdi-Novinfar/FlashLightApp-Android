@@ -18,6 +18,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.amirnovinfar.R;
+import com.sdsmdg.tastytoast.TastyToast;
 
 public class Setting extends AppCompatActivity {
 
@@ -28,8 +29,8 @@ public class Setting extends AppCompatActivity {
     Toolbar toolbar;
     ImageView view,call_setting,home_setting,about_setting;
     SwitchCompat switchCompat;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+
+    boolean canWrite;
 
 
     @Override
@@ -107,10 +108,6 @@ public class Setting extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-                        boolean canWrite = false;
-                        canWrite = Settings.System.canWrite(context);
-
                         if (canWrite) {
                             int brightness2 = i * 255 / 255;
                             Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -118,6 +115,7 @@ public class Setting extends AppCompatActivity {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness2);
 
                         } else {
+                            TastyToast.makeText(Setting.this, "در این قسمت این برنامه را انتخاب نموده و اجازه دادن تغیرات را به برنامه بدهید", Toast.LENGTH_LONG,TastyToast.ERROR).show();
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             startActivity(intent);
                         }
@@ -134,6 +132,9 @@ public class Setting extends AppCompatActivity {
 
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        canWrite = Settings.System.canWrite(context);
+                    }
 
                 }
 

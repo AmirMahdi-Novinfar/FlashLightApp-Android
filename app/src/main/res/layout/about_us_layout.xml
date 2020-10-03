@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:layout_width="350dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
     android:layout_height="350dp"
-    android:background="@drawable/backnavhead">
+    android:layout_centerInParent="true"
+    android:background="@drawable/back_about_us">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="45dp"
         android:src="@mipmap/ic_launcher">
 
     </de.hdodenhof.circleimageview.CircleImageView>
@@ -25,21 +25,48 @@
         android:layout_marginTop="18dp"
         android:fontFamily="@font/aviny"
         android:text="اپلیکیشن چراغ قوه "
-        android:textColor="#ffF"
+        android:textColor="#040000"
         android:textSize="30sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_name_app"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/aviny"
+        android:text="ورژن 2.0"
+        android:textColor="#150000"
+        android:textSize="26sp">
 
     </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_name_app"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="ورژن 2.0"
-        android:fontFamily="@font/aviny"
-        android:textColor="#ffF"
-        android:textSize="26sp">
+        android:layout_marginBottom="15dp"
+        android:text="Copyright c 2020"
+        android:textColor="#515050"
+
+        android:id="@+id/aaaaadfe"
+        android:textSize="16sp">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/aaaaadfe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="www.iamnovinfar.ir"
+        android:textColor="#515050"
+        android:textSize="20sp">
 
     </TextView>
 
