@@ -100,7 +100,7 @@ public class FlashLightActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isflashon) {
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 20; i++) {
                         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                             TurnOffFlashlights();
                             TurnOnFlashlights();
