@@ -378,7 +378,7 @@ public class FlashLightActivity extends AppCompatActivity {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, chanellid);
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationCompat.Action action = new NotificationCompat.Action(R.drawable.ic_settings, "بازگشت به برنامه", pendingIntent);
-        notification.setSmallIcon(R.drawable.ic_arrow_back);
+        notification.setSmallIcon(R.drawable.ic_flash_on_black_24dp);
         notification.setContentText("برنامه چراغ قوه در حال اجرا است");
         notification.setContentTitle("برنامه چراغ قوه");
         notification.addAction(action);
