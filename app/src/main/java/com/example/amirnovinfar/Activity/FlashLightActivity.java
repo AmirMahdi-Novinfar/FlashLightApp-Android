@@ -78,7 +78,7 @@ public class FlashLightActivity extends AppCompatActivity {
                                 TurnOnFlashlights();
                             } else if (isflashon == true) {
                                 TurnOffFlashlights();
-                                imageButton.setImageResource(R.drawable.main_off);
+                                imageButton.setImageResource(R.drawable.turned_off);
                             }
                         }else {GetPermission();}
 
@@ -88,7 +88,7 @@ public class FlashLightActivity extends AppCompatActivity {
                             TurnOnFlashlightsofapilast();
                         } else if (isflashon == true) {
                             TurnOffFlashlightsofapilast();
-                            imageButton.setImageResource(R.drawable.main_off);
+                            imageButton.setImageResource(R.drawable.turned_off);
                         }
 
                 }
@@ -263,9 +263,9 @@ public class FlashLightActivity extends AppCompatActivity {
     public void Changebackground_btn_switch() {
 
         if (isflashon) {
-            imageButton.setImageResource(R.drawable.main_on);
+            imageButton.setImageResource(R.drawable.turned_on);
         } else if (isflashon == false) {
-            imageButton.setImageResource(R.drawable.main_off);
+            imageButton.setImageResource(R.drawable.turned_off);
         }
     }
 
@@ -359,7 +359,7 @@ public class FlashLightActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         amir2=sharedPreferences.getBoolean("soundvalue",true);
-        CreateNotification();
+
 
 
     }
@@ -368,6 +368,7 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        CreateNotification();
 
     }
 
@@ -377,7 +378,7 @@ public class FlashLightActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, chanellid);
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        NotificationCompat.Action action = new NotificationCompat.Action(R.drawable.ic_settings, "بازگشت به برنامه", pendingIntent);
+        NotificationCompat.Action action = new NotificationCompat.Action(R.drawable.ic_arrow_back, "بازگشت به برنامه", pendingIntent);
         notification.setSmallIcon(R.drawable.ic_flash_on_black_24dp);
         notification.setContentText("برنامه چراغ قوه در حال اجرا است");
         notification.setContentTitle("برنامه چراغ قوه");
@@ -388,7 +389,7 @@ public class FlashLightActivity extends AppCompatActivity {
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("amir199", chanellid, NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel("amir1", chanellid, NotificationManager.IMPORTANCE_HIGH);
             notification.setChannelId(chanellid);
             manager.createNotificationChannel(channel);
         }
