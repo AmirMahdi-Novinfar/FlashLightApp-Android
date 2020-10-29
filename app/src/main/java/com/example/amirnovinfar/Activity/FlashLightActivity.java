@@ -2,7 +2,6 @@ package com.example.amirnovinfar.Activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,16 +36,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.amirnovinfar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
+
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
 
 public class FlashLightActivity extends AppCompatActivity {
     AppCompatImageButton imageButton, img_cheshmak;
-    boolean hasflash, isflashon, iscamerapermission,sound;
+    boolean hasflash, isflashon, iscamerapermission, sound;
     MediaPlayer mediaPlayer;
     int chknum = 0;
     Camera camera;
@@ -56,6 +58,47 @@ public class FlashLightActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     SharedPreferences sharedPreferences;
     boolean amir2;
+    SharedPreferences prefhelp;
+    SharedPreferences.Editor edthelp;
+    boolean help3;
+    boolean help4;
+
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+            battery_status.setText(String.valueOf(darsad) + "%");
+            if (darsad == 100) {
+                img_battery.setImageResource(R.drawable.ic_battery_full);
+            } else if (darsad >= 1 && darsad <= 15) {
+                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                battery_status2.setText("باطری شما ضعیف است");
+            } else if (darsad >= 20 && darsad <= 29) {
+                img_battery.setImageResource(R.drawable.ic_battery_20);
+
+            } else if (darsad >= 30 && darsad <= 39) {
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            } else if (darsad >= 40 && darsad <= 49) {
+                img_battery.setImageResource(R.drawable.ic_battery_30);
+
+            } else if (darsad >= 50 && darsad <= 59) {
+                img_battery.setImageResource(R.drawable.ic_battery_50);
+
+            } else if (darsad >= 60 && darsad <= 69) {
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 70 && darsad <= 79) {
+                img_battery.setImageResource(R.drawable.ic_battery_60);
+
+            } else if (darsad >= 80 && darsad <= 89) {
+                img_battery.setImageResource(R.drawable.ic_battery_80);
+            } else if (darsad >= 90 && darsad <= 99) {
+                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,31 +108,40 @@ public class FlashLightActivity extends AppCompatActivity {
         setupviews();
         GetPermission();
         isflashon = false;
-        iscamerapermission=false;
+        iscamerapermission = false;
+        help3 = false;
+        help4=prefhelp.getBoolean("HELPAMIR",false);
+
+        if (!help4){
+            showinfo();
+        }
+
+
         imageButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
-                boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (iscamper) {
-                            if (isflashon == false) {
-                                TurnOnFlashlights();
-                            } else if (isflashon == true) {
-                                TurnOffFlashlights();
-                                imageButton.setImageResource(R.drawable.turned_off);
-                            }
-                        }else {GetPermission();}
-
-                    } else {
-
+                SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                boolean iscamper = sharedPreferences.getBoolean("ispermissioncamera", false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (iscamper) {
                         if (isflashon == false) {
-                            TurnOnFlashlightsofapilast();
+                            TurnOnFlashlights();
                         } else if (isflashon == true) {
-                            TurnOffFlashlightsofapilast();
+                            TurnOffFlashlights();
                             imageButton.setImageResource(R.drawable.turned_off);
                         }
+                    } else {
+                        GetPermission();
+                    }
+
+                } else {
+
+                    if (isflashon == false) {
+                        TurnOnFlashlightsofapilast();
+                    } else if (isflashon == true) {
+                        TurnOffFlashlightsofapilast();
+                        imageButton.setImageResource(R.drawable.turned_off);
+                    }
 
                 }
 
@@ -158,7 +210,6 @@ public class FlashLightActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void setupviews() {
@@ -173,11 +224,9 @@ public class FlashLightActivity extends AppCompatActivity {
         img_help = findViewById(R.id.img_help);
         linearLayout = findViewById(R.id.layoyt_battry);
         setting_FlashLight = findViewById(R.id.setting_toolbar_FlashLight);
-       sharedPreferences=getSharedPreferences("soundamir",MODE_PRIVATE);
-
-
-
-
+        sharedPreferences = getSharedPreferences("soundamir", MODE_PRIVATE);
+        prefhelp=getPreferences(MODE_PRIVATE);
+        edthelp=prefhelp.edit();
 
     }
 
@@ -190,42 +239,44 @@ public class FlashLightActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void TurnOnFlashlights() {
-            if (issupportedflash()) {
-                final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
-                try {
-                    String camid = cameraManager.getCameraIdList()[0];
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        cameraManager.setTorchMode(camid, true);
-                        isflashon = true;
-                    }
+        if (issupportedflash()) {
+            final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
+            try {
+                String camid = cameraManager.getCameraIdList()[0];
 
-                    Changebackground_btn_switch();
-                    if (amir2==true){
-                        playbtnsound();
-                    }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    cameraManager.setTorchMode(camid, true);
+                }
+                isflashon = true;
 
-                } catch (Exception e) {
-                    Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                Changebackground_btn_switch();
+                if (amir2 == true) {
+                    playbtnsound();
                 }
 
-            } else {
-
-                AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
-                alertDialog.setTitle("خطا!");
-                alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
-                alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
-                alertDialog.show();
+            } catch (Exception e) {
+                Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
+
+        } else {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
+            alertDialog.setTitle("خطا!");
+            alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+            alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alertDialog.show();
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void TurnOffFlashlights() {
         if (issupportedflash()) {
             isflashon = false;
@@ -233,11 +284,13 @@ public class FlashLightActivity extends AppCompatActivity {
             final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
             try {
                 String camid = cameraManager.getCameraIdList()[0];
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     cameraManager.setTorchMode(camid, false);
                 }
+
                 Changebackground_btn_switch();
-                if (amir2==true){
+                if (amir2 == true) {
                     playbtnsound();
                 }
 
@@ -272,8 +325,10 @@ public class FlashLightActivity extends AppCompatActivity {
     public void playbtnsound() {
         if (isflashon) {
             mediaPlayer = MediaPlayer.create(FlashLightActivity.this, R.raw.switch_on);
+
         } else {
             mediaPlayer = MediaPlayer.create(FlashLightActivity.this, R.raw.switch_off);
+
         }
 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -283,6 +338,9 @@ public class FlashLightActivity extends AppCompatActivity {
             }
         });
 
+        mediaPlayer.setAuxEffectSendLevel(90000);
+
+        mediaPlayer.setVolume(1, 1);
         mediaPlayer.start();
 
     }
@@ -298,18 +356,16 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        amir2=sharedPreferences.getBoolean("soundvalue",true);
-        SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
-        boolean iscamper= sharedPreferences.getBoolean("ispermissioncamera",false);
-            if (Build.VERSION.SDK_INT==Build.VERSION_CODES.Q){
-                if (iscamper){
-                    TurnOnFlashlights();
-                }
-            }else {
+        amir2 = sharedPreferences.getBoolean("soundvalue", true);
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        boolean iscamper = sharedPreferences.getBoolean("ispermissioncamera", false);
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+            if (iscamper) {
+                TurnOnFlashlights();
+            }
+        } else {
             TurnOnFlashlightsofapilast();
         }
-
-
 
 
     }
@@ -323,7 +379,7 @@ public class FlashLightActivity extends AppCompatActivity {
             camera.startPreview();
             isflashon = true;
             Changebackground_btn_switch();
-            if (amir2==true){
+            if (amir2 == true) {
                 playbtnsound();
             }
         } catch (Exception e) {
@@ -332,18 +388,18 @@ public class FlashLightActivity extends AppCompatActivity {
 
     private void TurnOffFlashlightsofapilast() {
 
-            try {
-                camera.stopPreview();
-                isflashon = false;
-                camera.release();
-                camera = null;
-                if (amir2==true){
-                    playbtnsound();
-                }
-
-            } catch (Exception e) {
-                Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        try {
+            camera.stopPreview();
+            isflashon = false;
+            camera.release();
+            camera = null;
+            if (amir2 == true) {
+                playbtnsound();
             }
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -358,8 +414,7 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        amir2=sharedPreferences.getBoolean("soundvalue",true);
-
+        amir2 = sharedPreferences.getBoolean("soundvalue", true);
 
 
     }
@@ -385,6 +440,7 @@ public class FlashLightActivity extends AppCompatActivity {
         notification.addAction(action);
         notification.setAutoCancel(true);
         notification.setColor(Color.RED);
+
         notification.build();
 
 
@@ -394,7 +450,7 @@ public class FlashLightActivity extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
-        manager.notify(0,notification.build());
+        manager.notify(0, notification.build());
     }
 
     @Override
@@ -439,6 +495,12 @@ public class FlashLightActivity extends AppCompatActivity {
         queue.show();
 
 
+        if (!help4) {
+            help3 = true;
+            edthelp.putBoolean("HELPAMIR", help3);
+            edthelp.apply();
+        }
+
     }
 
     private void GetPermission() {
@@ -450,44 +512,6 @@ public class FlashLightActivity extends AppCompatActivity {
         }
     }
 
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            battery_status.setText(String.valueOf(darsad) + "%");
-            if (darsad == 100) {
-                img_battery.setImageResource(R.drawable.ic_battery_full);
-            } else if (darsad >= 1 && darsad <= 15) {
-                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
-                battery_status2.setText("باطری شما ضعیف است");
-            } else if (darsad >= 20 && darsad <= 29) {
-                img_battery.setImageResource(R.drawable.ic_battery_20);
-
-            } else if (darsad >= 30 && darsad <= 39) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
-
-            } else if (darsad >= 40 && darsad <= 49) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
-
-            } else if (darsad >= 50 && darsad <= 59) {
-                img_battery.setImageResource(R.drawable.ic_battery_50);
-
-            } else if (darsad >= 60 && darsad <= 69) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
-
-            } else if (darsad >= 70 && darsad <= 79) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
-
-            } else if (darsad >= 80 && darsad <= 89) {
-                img_battery.setImageResource(R.drawable.ic_battery_80);
-            } else if (darsad >= 90 && darsad <= 99) {
-                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
-            }
-        }
-    };
-
-
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -495,15 +519,15 @@ public class FlashLightActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case 1:
-                if (grantResults.length >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    iscamerapermission=true;
-                    SharedPreferences sharedPreferences=getPreferences(MODE_PRIVATE);
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putBoolean("ispermissioncamera",iscamerapermission);
+                if (grantResults.length >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    iscamerapermission = true;
+                    SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("ispermissioncamera", iscamerapermission);
                     editor.apply();
                     TurnOnFlashlights();
                 }
-                    break;
+                break;
         }
 
     }
