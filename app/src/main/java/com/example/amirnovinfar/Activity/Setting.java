@@ -180,5 +180,9 @@ public class Setting extends AppCompatActivity {
         dialog.show();
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GetBrightness();
+    }
 }

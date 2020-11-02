@@ -30,6 +30,7 @@
         <activity android:name=".Activity.FlashLightActivity" >
         </activity>
         <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.About_usActivty" android:theme="@style/Theme.MaterialComponents.Dialog"></activity>
     </application>
 
 </manifest>

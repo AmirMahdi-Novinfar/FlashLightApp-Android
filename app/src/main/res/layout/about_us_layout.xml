@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
     android:layout_height="350dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_centerInParent="true"
-    android:background="@drawable/back_about_us">
+    android:background="@drawable/back_about_us"
+    tools:context=".Activity.About_usActivty">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -11,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="35dp"
         android:src="@mipmap/ic_launcher">
 
     </de.hdodenhof.circleimageview.CircleImageView>
@@ -22,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/img_about"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/aviny"
         android:text="اپلیکیشن چراغ قوه "
         android:textColor="#040000"
@@ -36,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_name_app"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/aviny"
         android:text="ورژن 2.0"
         android:textColor="#150000"
@@ -50,11 +52,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:text="Copyright c 2020"
+        android:text="Copyright © 2020"
         android:textColor="#515050"
 
+        android:textAllCaps="true"
         android:id="@+id/aaaaadfe"
-        android:textSize="16sp">
+        android:textSize="19sp">
 
     </TextView>
 
@@ -64,7 +67,8 @@
         android:layout_above="@id/aaaaadfe"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:text="www.iamnovinfar.ir"
+        android:id="@+id/website"
+        android:text="WebSite:\nwww.iamnovinfar.ir"
         android:textColor="#515050"
         android:textSize="20sp">
 

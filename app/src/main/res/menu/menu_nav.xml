@@ -17,8 +17,8 @@
 </group>
 
 
-<item android:id="@+id/call_us" android:title="تماس با ما" android:icon="@drawable/ic_call"></item>
-<item android:id="@+id/about_us" android:title="درباره ما" android:icon="@drawable/ic_business_center_black_24dp"></item>
+<item android:id="@+id/call_us" android:title="تماس با برنامه نویس" android:icon="@drawable/ic_call"></item>
+<item android:id="@+id/about_us" android:title="درباره برنامه" android:icon="@drawable/ic_business_center_black_24dp"></item>
 <item android:id="@+id/quit" android:title="خروج" android:icon="@drawable/ic_exit_to_app_black_24dp"></item>
 
 

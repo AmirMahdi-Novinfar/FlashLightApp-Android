@@ -41,6 +41,8 @@ import com.example.amirnovinfar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
 
+import java.util.zip.Inflater;
+
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -49,7 +51,6 @@ public class FlashLightActivity extends AppCompatActivity {
     AppCompatImageButton imageButton, img_cheshmak;
     boolean hasflash, isflashon, iscamerapermission, sound;
     MediaPlayer mediaPlayer;
-    int chknum = 0;
     Camera camera;
     TextView battery_status, battery_status2, setting;
     ImageView img_battery, open_drawer, img_help, setting_FlashLight;
@@ -62,8 +63,7 @@ public class FlashLightActivity extends AppCompatActivity {
     SharedPreferences.Editor edthelp;
     boolean help3;
     boolean help4;
-
-
+    AlertDialog.Builder dialogs;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -197,7 +197,23 @@ public class FlashLightActivity extends AppCompatActivity {
                     startActivity(new Intent(FlashLightActivity.this, Setting.class));
                     drawerlayout1.closeDrawers();
                 } else if (id == R.id.quit) {
-                    finish();
+                    dialogs.setTitle("در حال خروج");
+                    dialogs.setIcon(R.drawable.ic_exit_to_app_black_24dp);
+                    dialogs.setMessage("شما در حال خروج هستید آیا ادامه می دهید؟؟");
+                    dialogs.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                       finish();
+                       TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید "+"\n"+"به امید دیدار مجدد شما",TastyToast.LENGTH_LONG,TastyToast.DEFAULT).show();
+                        }
+                    });
+                    dialogs.setNegativeButton("خیر ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialogs.show();
                 }
                 return true;
             }
@@ -227,7 +243,7 @@ public class FlashLightActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("soundamir", MODE_PRIVATE);
         prefhelp=getPreferences(MODE_PRIVATE);
         edthelp=prefhelp.edit();
-
+         dialogs=new AlertDialog.Builder(this);
     }
 
     private boolean issupportedflash() {
@@ -404,10 +420,8 @@ public class FlashLightActivity extends AppCompatActivity {
     }
 
     private void setaboutusdialog() {
-
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.about_us_layout);
-        dialog.show();
+        Intent intent=new Intent(FlashLightActivity.this,About_usActivty.class);
+        startActivity(intent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -456,6 +470,12 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            TurnOffFlashlights();
+        }else {
+            TurnOffFlashlightsofapilast();
+        }
+
     }
 
     void showinfo() {
@@ -530,6 +550,27 @@ public class FlashLightActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialogs.setTitle("در حال خروج");
+        dialogs.setIcon(R.drawable.ic_exit_to_app_black_24dp);
+        dialogs.setMessage("شما در حال خروج هستید آیا ادامه می دهید؟؟");
+        dialogs.setPositiveButton("بله", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید "+"\n"+"به امید دیدار مجدد شما",TastyToast.LENGTH_LONG,TastyToast.DEFAULT).show();
+            }
+        });
+        dialogs.setNegativeButton("خیر ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialogs.show();
     }
 }
 
