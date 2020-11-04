@@ -1,7 +1,6 @@
 package com.example.amirnovinfar.Activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Build;
@@ -41,8 +41,6 @@ import com.example.amirnovinfar.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
 
-import java.util.zip.Inflater;
-
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -52,7 +50,7 @@ public class FlashLightActivity extends AppCompatActivity {
     boolean hasflash, isflashon, iscamerapermission, sound;
     MediaPlayer mediaPlayer;
     Camera camera;
-    TextView battery_status, battery_status2, setting;
+    TextView battery_status, battery_status2;
     ImageView img_battery, open_drawer, img_help, setting_FlashLight;
     DrawerLayout drawerlayout1;
     NavigationView navigationView;
@@ -69,33 +67,107 @@ public class FlashLightActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
             battery_status.setText(String.valueOf(darsad) + "%");
-            if (darsad == 100) {
-                img_battery.setImageResource(R.drawable.ic_battery_full);
-            } else if (darsad >= 1 && darsad <= 15) {
-                img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
-                battery_status2.setText("باطری شما ضعیف است");
-            } else if (darsad >= 20 && darsad <= 29) {
-                img_battery.setImageResource(R.drawable.ic_battery_20);
+            int charge = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
+            if (charge==0) {
+                Toast.makeText(context, "باتری در حال شارژ نشدن" , Toast.LENGTH_SHORT).show();
+                if (darsad == 100) {
+                    img_battery.setImageResource(R.drawable.ic_battery_full);
+                } else if (darsad >= 1 && darsad <= 15) {
+                    img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                    battery_status2.setText("باطری شما ضعیف است");
 
-            } else if (darsad >= 30 && darsad <= 39) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
 
-            } else if (darsad >= 40 && darsad <= 49) {
-                img_battery.setImageResource(R.drawable.ic_battery_30);
+                } else if (darsad >= 16 && darsad <= 19) {
+                    img_battery.setImageResource(R.drawable.ic_battery_20);
 
-            } else if (darsad >= 50 && darsad <= 59) {
-                img_battery.setImageResource(R.drawable.ic_battery_50);
 
-            } else if (darsad >= 60 && darsad <= 69) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
+                } else if (darsad >= 20 && darsad <= 29) {
+                    img_battery.setImageResource(R.drawable.ic_battery_20);
 
-            } else if (darsad >= 70 && darsad <= 79) {
-                img_battery.setImageResource(R.drawable.ic_battery_60);
 
-            } else if (darsad >= 80 && darsad <= 89) {
-                img_battery.setImageResource(R.drawable.ic_battery_80);
-            } else if (darsad >= 90 && darsad <= 99) {
-                img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+                } else if (darsad >= 30 && darsad <= 39) {
+                    img_battery.setImageResource(R.drawable.ic_battery_30);
+
+
+                } else if (darsad >= 40 && darsad <= 49) {
+                    img_battery.setImageResource(R.drawable.ic_battery_30);
+
+
+                } else if (darsad >= 50 && darsad <= 59) {
+                    img_battery.setImageResource(R.drawable.ic_battery_50);
+
+
+                } else if (darsad >= 60 && darsad <= 69) {
+                    img_battery.setImageResource(R.drawable.ic_battery_60);
+
+
+                } else if (darsad >= 70 && darsad <= 79) {
+                    img_battery.setImageResource(R.drawable.ic_battery_60);
+
+
+                } else if (darsad >= 80 && darsad <= 89) {
+                    img_battery.setImageResource(R.drawable.ic_battery_80);
+
+
+                } else if (darsad >= 90 && darsad <= 95) {
+                    img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+
+                }
+            }else {
+                if (darsad == 100) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_full);
+                    battery_status2.setText("باطری کامل شارژ شده است");
+
+                } else if (darsad >= 1 && darsad <= 15) {
+                    img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 16 && darsad <= 19) {
+                    img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 20 && darsad <= 29) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_20);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 30 && darsad <= 39) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_30);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 40 && darsad <= 49) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_50);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 50 && darsad <= 59) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_50);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 60 && darsad <= 69) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_60_black_24dp);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 70 && darsad <= 79) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_80);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 80 && darsad <= 89) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_80);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+
+                } else if (darsad >= 90 && darsad <= 95) {
+                    img_battery.setImageResource(R.drawable.ic_battery_charging_90);
+                    battery_status2.setText("باطری درحال شارژ شدن");
+
+                }
             }
         }
     };
@@ -110,9 +182,9 @@ public class FlashLightActivity extends AppCompatActivity {
         isflashon = false;
         iscamerapermission = false;
         help3 = false;
-        help4=prefhelp.getBoolean("HELPAMIR",false);
+        help4 = prefhelp.getBoolean("HELPAMIR", false);
 
-        if (!help4){
+        if (!help4) {
             showinfo();
         }
 
@@ -203,8 +275,8 @@ public class FlashLightActivity extends AppCompatActivity {
                     dialogs.setPositiveButton("بله", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                       finish();
-                       TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید "+"\n"+"به امید دیدار مجدد شما",TastyToast.LENGTH_LONG,TastyToast.DEFAULT).show();
+                            finish();
+                            TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید " + "\n" + "به امید دیدار مجدد شما", TastyToast.LENGTH_LONG, TastyToast.DEFAULT).show();
                         }
                     });
                     dialogs.setNegativeButton("خیر ", new DialogInterface.OnClickListener() {
@@ -241,9 +313,9 @@ public class FlashLightActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.layoyt_battry);
         setting_FlashLight = findViewById(R.id.setting_toolbar_FlashLight);
         sharedPreferences = getSharedPreferences("soundamir", MODE_PRIVATE);
-        prefhelp=getPreferences(MODE_PRIVATE);
-        edthelp=prefhelp.edit();
-         dialogs=new AlertDialog.Builder(this);
+        prefhelp = getPreferences(MODE_PRIVATE);
+        edthelp = prefhelp.edit();
+        dialogs = new AlertDialog.Builder(this);
     }
 
     private boolean issupportedflash() {
@@ -420,7 +492,7 @@ public class FlashLightActivity extends AppCompatActivity {
     }
 
     private void setaboutusdialog() {
-        Intent intent=new Intent(FlashLightActivity.this,About_usActivty.class);
+        Intent intent = new Intent(FlashLightActivity.this, About_usActivty.class);
         startActivity(intent);
     }
 
@@ -470,6 +542,7 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             TurnOffFlashlights();
         }else {
@@ -478,6 +551,7 @@ public class FlashLightActivity extends AppCompatActivity {
 
     }
 
+
     void showinfo() {
         FancyShowCaseView view1 = new FancyShowCaseView.Builder(this)
                 .focusOn(open_drawer)
@@ -485,7 +559,7 @@ public class FlashLightActivity extends AppCompatActivity {
                 .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
                 .build();
         FancyShowCaseView view2 = new FancyShowCaseView.Builder(this)
-                .focusOn(setting)
+                .focusOn(setting_FlashLight)
                 .title("تنظیمات برنامه")
                 .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
                 .build();
@@ -561,7 +635,7 @@ public class FlashLightActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
-                TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید "+"\n"+"به امید دیدار مجدد شما",TastyToast.LENGTH_LONG,TastyToast.DEFAULT).show();
+                TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید " + "\n" + "به امید دیدار مجدد شما", TastyToast.LENGTH_LONG, TastyToast.DEFAULT).show();
             }
         });
         dialogs.setNegativeButton("خیر ", new DialogInterface.OnClickListener() {
