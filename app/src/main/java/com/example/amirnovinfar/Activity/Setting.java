@@ -53,8 +53,7 @@ public class Setting extends AppCompatActivity {
         home_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Setting.this,FlashLightActivity.class));
-                finish();
+                onBackPressed();
             }
         });
 
