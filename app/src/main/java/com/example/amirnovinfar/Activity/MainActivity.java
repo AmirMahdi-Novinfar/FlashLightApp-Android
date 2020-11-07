@@ -1,11 +1,5 @@
 package com.example.amirnovinfar.Activity;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,23 +15,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.amirnovinfar.Adapter.My_view_page_adapter;
+import com.example.amirnovinfar.Adapter.ViewpagerAnimation;
 import com.example.amirnovinfar.R;
 
 public class MainActivity extends AppCompatActivity {
-    private ViewPager viewPager;
     public Button btn, btn2;
     My_view_page_adapter page_adapter;
     LinearLayout dots_lay;
     SharedPreferences sharedPreferences;
     boolean islogin;
-
-    int[] layid = {
-            R.layout.fragment_blank,
-            R.layout.fragment_slide_2,
-            R.layout.fragment_slide_3,
-    };
-
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         page_adapter = new My_view_page_adapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(page_adapter);
+
+        ViewpagerAnimation animation = new ViewpagerAnimation();
+        viewPager.setPageTransformer(true, animation);
+
+
         dots_lay = findViewById(R.id.dots_layout);
         Dots(0);
 
@@ -62,13 +59,14 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPreferences=getSharedPreferences("islogin", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
+                sharedPreferences = getSharedPreferences("islogin", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 startActivity(new Intent(MainActivity.this, FlashLightActivity.class));
-                islogin=true;
-                editor.putBoolean("ISLOGIN",islogin);
+                islogin = true;
+                editor.putBoolean("ISLOGIN", islogin);
                 editor.apply();
-                finish();            }
+                finish();
+            }
         });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -80,30 +78,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Dots(position);
-                if (position==3-1){
+                if (position == 3 - 1) {
                     btn2.setVisibility(View.GONE);
                     btn.setText("بزن بریم");
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            sharedPreferences=getSharedPreferences("islogin", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor=sharedPreferences.edit();
+                            sharedPreferences = getSharedPreferences("islogin", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
                             startActivity(new Intent(MainActivity.this, FlashLightActivity.class));
-                            islogin=true;
-                            editor.putBoolean("ISLOGIN",islogin);
+                            islogin = true;
+                            editor.putBoolean("ISLOGIN", islogin);
                             editor.apply();
                             finish();
                         }
                     });
-                }else {
+                } else {
                     btn2.setVisibility(View.VISIBLE);
                     btn.setText("بعدی");
-               btn.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View view) {
-                       viewPager.setCurrentItem(NextViewPagerItem(1), true);
-                   }
-               });
+                    btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            viewPager.setCurrentItem(NextViewPagerItem(1), true);
+                        }
+                    });
                 }
             }
 
@@ -114,15 +112,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     public int NextViewPagerItem(int i) {
         return viewPager.getCurrentItem() + i;
-    }
-
-    public int PerViewPagerItem(int i) {
-        return viewPager.getCurrentItem() - i;
     }
 
     public void Dots(int pagenumber) {
@@ -139,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void changebackgroundstatusbar(){
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-            Window window=getWindow();
+    private void changebackgroundstatusbar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             );
