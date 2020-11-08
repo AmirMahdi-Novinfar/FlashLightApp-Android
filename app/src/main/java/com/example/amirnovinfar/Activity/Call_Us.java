@@ -35,16 +35,10 @@ public class Call_Us extends AppCompatActivity {
         connect_via_tel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    String phone = "tel:09375311696";
-                    Intent callintent = new Intent(Intent.ACTION_DIAL);
-                    callintent.setData(Uri.parse(phone));
-                    startActivity(callintent);
-
-                }catch (Exception e){
-                    Toast.makeText(Call_Us.this, "برنامه ای برای تماس وجود ندارد", Toast.LENGTH_LONG).show();
-                    Toast.makeText(Call_Us.this, "برنامه ای برای تماس نصب کرده و دوباره امتحان کنید", Toast.LENGTH_LONG).show();
-                }
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                String uri="https://iamnovinfar.ir";
+                intent.setData(Uri.parse(uri));
+                startActivity(intent);
             }
         });
 

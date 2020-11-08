@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F1F1"
     android:layoutDirection="ltr"
     tools:context="com.example.amirnovinfar.Activity.Call_Us">
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:src="@drawable/ii"
         android:id="@+id/aks2"
-        android:scaleType="centerCrop">
-
-    </ImageView>
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ii"></ImageView>
 
     <EditText
         android:id="@+id/edt_subject"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:hint="موضوع خود را وارد کنید"
-        android:layout_marginTop="10dp"
+        android:layout_height="40dp"
         android:layout_below="@id/aks2"
-        android:maxHeight="2dp"
-        android:maxLines="2"></EditText>
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/custom_editcall"
+        android:drawableRight="@drawable/custom_subject"
+        android:drawablePadding="12dp"
+        android:hint="موضوع خود را وارد کنید"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+    </EditText>
 
     <EditText
         android:id="@+id/edt_body"
@@ -34,9 +42,19 @@
         android:layout_height="120dp"
         android:layout_below="@id/edt_subject"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:hint="پیام خود را وارد کنید"></EditText>
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/custom_editcall"
+        android:drawableRight="@drawable/custom_dec"
+        android:drawablePadding="12dp"
+        android:hint="توضیحات خود را وارد کنید"
+        android:padding="18dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+    </EditText>
 
     <Button
         android:id="@+id/btn_send_payam"
@@ -45,10 +63,14 @@
         android:layout_below="@id/edt_body"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="160dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
         android:fontFamily="@font/aviny"
-        android:text="ارسال"
-        android:textSize="30sp"></Button>
+        android:text="  ارسال  "
+        android:textColor="#525252"
+        android:textSize="30sp">
+
+    </Button>
 
     <Button
         android:id="@+id/connect_via_tel"
@@ -57,9 +79,14 @@
         android:layout_below="@id/btn_send_payam"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="150dp"
-        android:layout_marginTop="20dp"
+
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_button"
         android:fontFamily="@font/aviny"
-        android:text="تماس با تلفن"
-        android:textSize="30sp"></Button>
+        android:text="   وب سایت  "
+        android:textColor="#525252"
+        android:textSize="30sp">
+
+    </Button>
 
 </RelativeLayout>

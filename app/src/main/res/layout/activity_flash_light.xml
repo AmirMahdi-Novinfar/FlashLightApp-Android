@@ -126,7 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:textColor="#fff"
-                    android:textSize="13sp" />
+                    android:fontFamily="@font/nazanin"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </LinearLayout>
