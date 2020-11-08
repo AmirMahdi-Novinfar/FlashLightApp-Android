@@ -46,8 +46,10 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
 
 public class FlashLightActivity extends AppCompatActivity {
+
+
     AppCompatImageButton imageButton, img_cheshmak;
-    boolean hasflash, isflashon, iscamerapermission, sound;
+    boolean hasflash, isflashon, iscamerapermission;
     MediaPlayer mediaPlayer;
     Camera camera;
     TextView battery_status, battery_status2;
@@ -69,9 +71,10 @@ public class FlashLightActivity extends AppCompatActivity {
             battery_status.setText(String.valueOf(darsad) + "%");
             int charge = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
             if (charge==0) {
-                Toast.makeText(context, "باتری در حال شارژ نشدن" , Toast.LENGTH_SHORT).show();
                 if (darsad == 100) {
                     img_battery.setImageResource(R.drawable.ic_battery_full);
+                    battery_status2.setText("");
+
                 } else if (darsad >= 1 && darsad <= 15) {
                     img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
                     battery_status2.setText("باطری شما ضعیف است");
@@ -79,44 +82,62 @@ public class FlashLightActivity extends AppCompatActivity {
 
                 } else if (darsad >= 16 && darsad <= 19) {
                     img_battery.setImageResource(R.drawable.ic_battery_20);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 20 && darsad <= 29) {
                     img_battery.setImageResource(R.drawable.ic_battery_20);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 30 && darsad <= 39) {
                     img_battery.setImageResource(R.drawable.ic_battery_30);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 40 && darsad <= 49) {
                     img_battery.setImageResource(R.drawable.ic_battery_30);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 50 && darsad <= 59) {
                     img_battery.setImageResource(R.drawable.ic_battery_50);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 60 && darsad <= 69) {
                     img_battery.setImageResource(R.drawable.ic_battery_60);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 70 && darsad <= 79) {
                     img_battery.setImageResource(R.drawable.ic_battery_60);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 80 && darsad <= 89) {
                     img_battery.setImageResource(R.drawable.ic_battery_80);
+                    battery_status2.setText("");
+
 
 
                 } else if (darsad >= 90 && darsad <= 95) {
                     img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
+                    battery_status2.setText("");
+
 
                 }
             }else {
                 if (darsad == 100) {
                     img_battery.setImageResource(R.drawable.ic_battery_charging_full);
-                    battery_status2.setText("باطری کامل شارژ شده است");
+                    battery_status2.setText("باطری شارژ شده است");
 
                 } else if (darsad >= 1 && darsad <= 15) {
                     img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
@@ -505,13 +526,6 @@ public class FlashLightActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    protected void onStop() {
-        super.onStop();
-        CreateNotification();
-
-    }
 
     private void CreateNotification() {
         String chanellid = "amir1";
@@ -542,13 +556,14 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            TurnOffFlashlights();
+        if(isflashon) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                TurnOffFlashlights();
+            } else {
+                TurnOffFlashlightsofapilast();
+            }
         }else {
-            TurnOffFlashlightsofapilast();
         }
-
     }
 
 
@@ -635,6 +650,7 @@ public class FlashLightActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
+                CreateNotification();
                 TastyToast.makeText(FlashLightActivity.this, "شما خارج شدید " + "\n" + "به امید دیدار مجدد شما", TastyToast.LENGTH_LONG, TastyToast.DEFAULT).show();
             }
         });
