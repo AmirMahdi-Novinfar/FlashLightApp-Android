@@ -3,14 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#710085"
+    android:background="#6F2FA8"
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/slideimg"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/image_2"
-        android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
+
+        android:src="@drawable/flashlight2"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
         android:textColor="#fff"
@@ -30,9 +31,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/textdescription"
         android:fontFamily="@font/aviny"
-        android:textSize="27sp"
+        android:textSize="30sp"
         android:layout_marginTop="40dp"
-        android:text="این برنامه بسیار سبک بوده و هیچ منبع زیادی از تلفن همراه شما را نمیگیرد"></TextView>
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"        android:text="این برنامه بسیار سبک بوده و هیچ منبع زیادی از تلفن همراه شما را نمیگیرد"></TextView>
 
 
 
