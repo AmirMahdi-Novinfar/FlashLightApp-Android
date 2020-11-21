@@ -1,7 +1,9 @@
 package com.example.amirnovinfar.Activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -42,6 +44,7 @@ public class Setting extends AppCompatActivity {
         context = getApplicationContext();
         GetBrightness();
         SetBrightness();
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,5 +186,17 @@ public class Setting extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         GetBrightness();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            canWrite = Settings.System.canWrite(context);
+        }
+        if (!canWrite){
+
+            TastyToast.makeText(Setting.this, "در این قسمت این برنامه را انتخاب نموده و اجازه دادن تغیرات را به برنامه بدهید", Toast.LENGTH_LONG,TastyToast.ERROR).show();
+            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+            startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                canWrite = Settings.System.canWrite(context);
+            }
+        }
     }
 }

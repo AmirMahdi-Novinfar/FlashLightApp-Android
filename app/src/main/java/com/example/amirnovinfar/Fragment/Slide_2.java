@@ -15,9 +15,7 @@ import com.example.amirnovinfar.R;
  */
 public class Slide_2 extends Fragment {
 
-    public Slide_2() {
-        // Required empty public constructor
-    }
+
 
 
     @Override

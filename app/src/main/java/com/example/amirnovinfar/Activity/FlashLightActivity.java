@@ -69,8 +69,8 @@ public class FlashLightActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             int darsad = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
             battery_status.setText(String.valueOf(darsad) + "%");
-            int charge = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
-            if (charge==0) {
+            int charge = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+            if (charge == 0) {
                 if (darsad == 100) {
                     img_battery.setImageResource(R.drawable.ic_battery_full);
                     battery_status2.setText("");
@@ -85,11 +85,9 @@ public class FlashLightActivity extends AppCompatActivity {
                     battery_status2.setText("");
 
 
-
                 } else if (darsad >= 20 && darsad <= 29) {
                     img_battery.setImageResource(R.drawable.ic_battery_20);
                     battery_status2.setText("");
-
 
 
                 } else if (darsad >= 30 && darsad <= 39) {
@@ -97,11 +95,9 @@ public class FlashLightActivity extends AppCompatActivity {
                     battery_status2.setText("");
 
 
-
                 } else if (darsad >= 40 && darsad <= 49) {
                     img_battery.setImageResource(R.drawable.ic_battery_30);
                     battery_status2.setText("");
-
 
 
                 } else if (darsad >= 50 && darsad <= 59) {
@@ -109,11 +105,9 @@ public class FlashLightActivity extends AppCompatActivity {
                     battery_status2.setText("");
 
 
-
                 } else if (darsad >= 60 && darsad <= 69) {
                     img_battery.setImageResource(R.drawable.ic_battery_60);
                     battery_status2.setText("");
-
 
 
                 } else if (darsad >= 70 && darsad <= 79) {
@@ -121,21 +115,18 @@ public class FlashLightActivity extends AppCompatActivity {
                     battery_status2.setText("");
 
 
-
                 } else if (darsad >= 80 && darsad <= 89) {
                     img_battery.setImageResource(R.drawable.ic_battery_80);
                     battery_status2.setText("");
 
 
-
-                } else if (darsad >= 90 && darsad <= 95) {
+                } else if (darsad >= 90 && darsad <= 99) {
                     img_battery.setImageResource(R.drawable.ic_battery_90_black_24dp);
                     battery_status2.setText("");
 
 
                 }
-            }else {
-                if (darsad == 100) {
+            } else { if (darsad == 100) {
                     img_battery.setImageResource(R.drawable.ic_battery_charging_full);
                     battery_status2.setText("باطری شارژ شده است");
 
@@ -199,15 +190,17 @@ public class FlashLightActivity extends AppCompatActivity {
         setContentView(R.layout.navdrawer);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setupviews();
-        GetPermission();
+        if (issupportedflash()) {
+            GetPermission();
+        }
         isflashon = false;
         iscamerapermission = false;
         help3 = false;
         help4 = prefhelp.getBoolean("HELPAMIR", false);
-
         if (!help4) {
             showinfo();
         }
+
 
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -374,7 +367,8 @@ public class FlashLightActivity extends AppCompatActivity {
 
             AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
             alertDialog.setTitle("خطا!");
-            alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+            alertDialog.setCancelable(false);
+            alertDialog.setMessage("دستگاه شما از چراغ قوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
             alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -410,7 +404,9 @@ public class FlashLightActivity extends AppCompatActivity {
 
             AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
             alertDialog.setTitle("خطا!");
-            alertDialog.setMessage("دستگاه شما از چراغ غوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+            alertDialog.setCancelable(false);
+
+            alertDialog.setMessage("دستگاه شما از چراغ قوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
             alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -435,7 +431,7 @@ public class FlashLightActivity extends AppCompatActivity {
         if (isflashon) {
             mediaPlayer = MediaPlayer.create(FlashLightActivity.this, R.raw.switch_on);
 
-        } else {
+        } else if (isflashon==false){
             mediaPlayer = MediaPlayer.create(FlashLightActivity.this, R.raw.switch_off);
 
         }
@@ -454,7 +450,6 @@ public class FlashLightActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onResume() {
         super.onResume();
@@ -480,34 +475,64 @@ public class FlashLightActivity extends AppCompatActivity {
     }
 
     private void TurnOnFlashlightsofapilast() {
-        try {
-            camera = Camera.open();
-            Camera.Parameters p = camera.getParameters();
-            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            camera.setParameters(p);
-            camera.startPreview();
-            isflashon = true;
-            Changebackground_btn_switch();
-            if (amir2 == true) {
-                playbtnsound();
+        if (issupportedflash()) {
+            try {
+                camera = Camera.open();
+                Camera.Parameters p = camera.getParameters();
+                p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                camera.setParameters(p);
+                camera.startPreview();
+                isflashon = true;
+                Changebackground_btn_switch();
+                if (amir2 == true) {
+                    playbtnsound();
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
+        }else {
+            AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
+            alertDialog.setTitle("خطا!");
+           alertDialog.setCancelable(false);
+            alertDialog.setMessage("دستگاه شما از چراغ قوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+            alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alertDialog.show();
         }
     }
 
     private void TurnOffFlashlightsofapilast() {
 
-        try {
-            camera.stopPreview();
-            isflashon = false;
-            camera.release();
-            camera = null;
-            if (amir2 == true) {
-                playbtnsound();
-            }
+        if (issupportedflash()) {
 
-        } catch (Exception e) {
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            try {
+                camera.stopPreview();
+                isflashon = false;
+                camera.release();
+                camera = null;
+                if (amir2 == true) {
+                    playbtnsound();
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            AlertDialog alertDialog = new AlertDialog.Builder(FlashLightActivity.this).create();
+            alertDialog.setTitle("خطا!");
+            alertDialog.setCancelable(false);
+
+            alertDialog.setMessage("دستگاه شما از چراغ قوه پشتیبانی نمی کند و یا چراغ قوه شما آسیب دیده است.");
+            alertDialog.setButton("خروج", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alertDialog.show();
         }
 
     }
@@ -556,13 +581,13 @@ public class FlashLightActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(isflashon) {
+        if (isflashon) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 TurnOffFlashlights();
             } else {
                 TurnOffFlashlightsofapilast();
             }
-        }else {
+        } else {
         }
     }
 
@@ -628,6 +653,8 @@ public class FlashLightActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case 1:
+
+
                 if (grantResults.length >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     iscamerapermission = true;
                     SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
@@ -635,7 +662,12 @@ public class FlashLightActivity extends AppCompatActivity {
                     editor.putBoolean("ispermissioncamera", iscamerapermission);
                     editor.apply();
                     TurnOnFlashlights();
+
+                }else {
+                    TastyToast.makeText(FlashLightActivity.this, "شما اجازه دسترسی به چراغ قوه را ندادید" , TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
+
                 }
+
                 break;
         }
 
@@ -663,4 +695,5 @@ public class FlashLightActivity extends AppCompatActivity {
         dialogs.show();
     }
 }
+
 

@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:layoutDirection="ltr"
-
+    android:gravity="center_horizontal"
     android:id="@+id/slidelinerlayout"
     android:background="#751D4A">
 
     <de.hdodenhof.circleimageview.CircleImageView
 
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_marginTop="88dp"
+        android:layout_height="150dp"
         android:src="@drawable/flashlight"
         android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
 
@@ -24,7 +24,7 @@
         android:textSize="40sp"
         android:fontFamily="@font/aviny"
         android:textStyle="bold"
-        android:layout_marginTop="40dp"></TextView>
+        android:layout_marginTop="20dp"></TextView>
 
     <TextView
         android:textColor="#fff"
@@ -34,10 +34,9 @@
         android:id="@+id/textdescription"
         android:fontFamily="@font/aviny"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
-        android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده dxxشود"></TextView>
+        android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده شود"></TextView>
 
 
 

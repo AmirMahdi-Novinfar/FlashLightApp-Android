@@ -10,7 +10,6 @@
         android:id="@+id/slideimg"
         android:layout_width="200dp"
         android:layout_height="200dp"
-
         android:src="@drawable/flashlight2"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
