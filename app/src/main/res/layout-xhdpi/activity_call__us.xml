@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_backgroundaaa"
+    android:layoutDirection="ltr"
+    tools:context="com.example.amirnovinfar.Activity.Call_Us">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="تماس با برنامه نویس "
+        android:fontFamily="@font/aviny"
+        android:textSize="30dp"
+        android:layout_marginTop="55dp"></TextView>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/amirlay"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="90dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_editcall"
+                android:drawableRight="@drawable/custom_subject"
+                android:drawablePadding="12dp"
+                android:hint="موضوع خود را وارد کنید"
+                android:maxLines="1"
+                android:outlineSpotShadowColor="#BB12B0"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/amir2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="332dp"
+            android:layout_height="126dp"
+            android:layout_below="@id/amirlay"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+
+            android:outlineSpotShadowColor="#BB12B0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_body"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="330dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/custom_editcall"
+                android:drawableRight="@drawable/custom_dec"
+                android:drawablePadding="12dp"
+                android:hint="توضیحات خود را وارد کنید"
+                android:padding="18dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btn_send_payam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/amir2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/aviny"
+            android:text="  ارسال  "
+            android:textColor="#525252"
+            android:textSize="30sp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/connect_via_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_send_payam"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_button"
+            android:fontFamily="@font/aviny"
+            android:text="   وب سایت  "
+            android:textColor="#525252"
+            android:textSize="30sp">
+
+        </Button>
+
+    </RelativeLayout>
+</RelativeLayout>

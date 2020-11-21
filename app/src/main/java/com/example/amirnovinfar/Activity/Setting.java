@@ -189,13 +189,14 @@ public class Setting extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             canWrite = Settings.System.canWrite(context);
         }
-        if (!canWrite){
-
-            TastyToast.makeText(Setting.this, "در این قسمت این برنامه را انتخاب نموده و اجازه دادن تغیرات را به برنامه بدهید", Toast.LENGTH_LONG,TastyToast.ERROR).show();
-            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            startActivity(intent);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                canWrite = Settings.System.canWrite(context);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!canWrite) {
+                TastyToast.makeText(Setting.this, "در این قسمت این برنامه را انتخاب نموده و اجازه دادن تغیرات را به برنامه بدهید", Toast.LENGTH_LONG, TastyToast.ERROR).show();
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    canWrite = Settings.System.canWrite(context);
+                }
             }
         }
     }
