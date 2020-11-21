@@ -15,11 +15,11 @@
         android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
+        android:text="برنامه کاربردی"
         android:textColor="#fff"
         android:id="@+id/txttitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="برنامه کاربردی"
         android:textSize="40sp"
         android:fontFamily="@font/aviny"
         android:textStyle="bold"
@@ -33,7 +33,7 @@
         android:id="@+id/textdescription"
         android:fontFamily="@font/aviny"
         android:textSize="30sp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
         android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده شود"></TextView>

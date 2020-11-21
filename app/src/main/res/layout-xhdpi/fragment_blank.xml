@@ -16,15 +16,18 @@
         android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
+        android:text="برنامه کاربردی"
         android:textColor="#fff"
         android:id="@+id/txttitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="برنامه کاربردی"
         android:textSize="30sp"
         android:fontFamily="@font/aviny"
         android:textStyle="bold"
-        android:layout_marginTop="40dp"></TextView>
+        android:layout_marginTop="40dp"
+        >
+
+    </TextView>
 
     <TextView
         android:textColor="#fff"

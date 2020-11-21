@@ -2,27 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
     android:gravity="center_horizontal"
-    android:id="@+id/slidelinerlayout"
-    android:background="#751D4A">
+    android:background="#6F2FA8"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
-
+        android:id="@+id/slideimg"
         android:layout_width="150dp"
-        android:layout_marginTop="88dp"
         android:layout_height="150dp"
-        android:src="@drawable/flashlight"
-        android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
+        android:layout_marginTop="50dp"
+        android:src="@drawable/flashlight2"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
-        android:text="برنامه کاربردی"
+        android:text="سبک و قابل کارکرد"
         android:textColor="#fff"
         android:id="@+id/txttitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
         android:fontFamily="@font/aviny"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"></TextView>
 
@@ -33,10 +31,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/textdescription"
         android:fontFamily="@font/aviny"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
-        android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده شود"></TextView>
+        android:layout_marginLeft="25dp"        android:text="این برنامه بسیار سبک بوده و هیچ منبع زیادی از تلفن همراه شما را نمیگیرد"></TextView>
 
 
 
