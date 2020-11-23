@@ -75,7 +75,7 @@ public class FlashLightActivity extends AppCompatActivity {
                     img_battery.setImageResource(R.drawable.ic_battery_full);
                     battery_status2.setText("");
 
-                } else if (darsad >= 1 && darsad <= 15) {
+                } else if (darsad >= 0 && darsad <= 15) {
                     img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
                     battery_status2.setText("باطری شما ضعیف است");
 
@@ -130,7 +130,7 @@ public class FlashLightActivity extends AppCompatActivity {
                     img_battery.setImageResource(R.drawable.ic_battery_charging_full);
                     battery_status2.setText("باطری شارژ شده است");
 
-                } else if (darsad >= 1 && darsad <= 15) {
+                } else if (darsad >= 0 && darsad <= 15) {
                     img_battery.setImageResource(R.drawable.ic_battery_alert_black_24dp);
                     battery_status2.setText("باطری درحال شارژ شدن");
 
@@ -175,7 +175,7 @@ public class FlashLightActivity extends AppCompatActivity {
                     battery_status2.setText("باطری درحال شارژ شدن");
 
 
-                } else if (darsad >= 90 && darsad <= 95) {
+                } else if (darsad >= 90 && darsad <= 99) {
                     img_battery.setImageResource(R.drawable.ic_battery_charging_90);
                     battery_status2.setText("باطری درحال شارژ شدن");
 
