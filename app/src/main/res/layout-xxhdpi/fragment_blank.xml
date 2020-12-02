@@ -3,15 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:id="@+id/slidelinerlayout"
     android:background="#751D4A">
 
     <de.hdodenhof.circleimageview.CircleImageView
 
-        android:layout_width="150dp"
-        android:layout_marginTop="88dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/flashlight"
         android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
 
@@ -28,15 +27,15 @@
 
     <TextView
         android:textColor="#fff"
-        android:textAlignment="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textdescription"
         android:fontFamily="@font/aviny"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
-        android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده شود"></TextView>
+        android:text="این برنامه کاربردی است چرا که چراغ قوه ممکن است در همه جا استفاده شود"
+        android:gravity="center_horizontal"></TextView>
 
 
 

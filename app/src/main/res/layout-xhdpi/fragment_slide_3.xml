@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_marginTop="80dp"
         android:src="@drawable/flashlight3"
-        android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
+        android:id="@+id/slideimg23"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
         android:text="راحت و دوست داشتنی"

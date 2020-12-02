@@ -7,7 +7,7 @@
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/slideimg"
+        android:id="@+id/slideimg22"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="50dp"

@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:src="@drawable/flashlight3"
         android:layout_height="200dp"
-        android:id="@+id/slideimg"></de.hdodenhof.circleimageview.CircleImageView>
+        android:id="@+id/slideimg22"></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
         android:textColor="#fff"
