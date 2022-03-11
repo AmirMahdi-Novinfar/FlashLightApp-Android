@@ -48,7 +48,7 @@ import me.toptas.fancyshowcase.FocusShape;
 public class FlashLightActivity extends AppCompatActivity {
 
 
-    AppCompatImageButton imageButton, img_cheshmak;
+    AppCompatImageButton imageButton;
     boolean hasflash, isflashon, iscamerapermission;
     MediaPlayer mediaPlayer;
     Camera camera;
@@ -190,6 +190,8 @@ public class FlashLightActivity extends AppCompatActivity {
         setContentView(R.layout.navdrawer);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setupviews();
+        imageButton.setImageResource(R.drawable.turned_off);
+
         if (issupportedflash()) {
             GetPermission();
         }
@@ -233,28 +235,29 @@ public class FlashLightActivity extends AppCompatActivity {
 
             }
         });
-        img_cheshmak.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.Q)
-            @Override
-            public void onClick(View view) {
-                if (isflashon) {
-                    for (int i = 0; i < 20; i++) {
-                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-                            TurnOffFlashlights();
-                            TurnOnFlashlights();
-                        } else {
-                            TurnOffFlashlightsofapilast();
-                            TurnOnFlashlightsofapilast();
-                        }
 
-                    }
-                } else {
-                    TastyToast.makeText(FlashLightActivity.this, "لطفا چراغ قوه را روشن کنید.", TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
-                }
-
-
-            }
-        });
+//        img_cheshmak.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.Q)
+//            @Override
+//            public void onClick(View view) {
+//                if (isflashon) {
+//                    for (int i = 0; i < 20; i++) {
+//                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+//                            TurnOffFlashlights();
+//                            TurnOnFlashlights();
+//                        } else {
+//                            TurnOffFlashlightsofapilast();
+//                            TurnOnFlashlightsofapilast();
+//                        }
+//
+//                    }
+//                } else {
+//                    TastyToast.makeText(FlashLightActivity.this, "لطفا چراغ قوه را روشن کنید.", TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
+//                }
+//
+//
+//            }
+//        });
         open_drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -316,7 +319,6 @@ public class FlashLightActivity extends AppCompatActivity {
 
     private void setupviews() {
         imageButton = findViewById(R.id.btn_switch);
-        img_cheshmak = findViewById(R.id.img_cheshmak);
         battery_status = findViewById(R.id.battery_status);
         img_battery = findViewById(R.id.img_battery);
         drawerlayout1 = findViewById(R.id.drawerlayout1);
@@ -346,10 +348,11 @@ public class FlashLightActivity extends AppCompatActivity {
         if (issupportedflash()) {
             final CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
             try {
-                String camid = cameraManager.getCameraIdList()[0];
+                String[] camid = cameraManager.getCameraIdList();
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    cameraManager.setTorchMode(camid, true);
+                    cameraManager.setTorchMode(camid[0], true);
+                    cameraManager.setTorchMode(camid[0], true);
                 }
                 isflashon = true;
 
@@ -463,13 +466,13 @@ public class FlashLightActivity extends AppCompatActivity {
         amir2 = sharedPreferences.getBoolean("soundvalue", true);
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         boolean iscamper = sharedPreferences.getBoolean("ispermissioncamera", false);
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-            if (iscamper) {
-                TurnOnFlashlights();
-            }
-        } else {
-            TurnOnFlashlightsofapilast();
-        }
+//        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+//            if (iscamper) {
+//                TurnOnFlashlights();
+//            }
+//        } else {
+//            TurnOnFlashlightsofapilast();
+//        }
 
 
     }
@@ -608,11 +611,7 @@ public class FlashLightActivity extends AppCompatActivity {
                 .title("روشن کردن چراغ قوه ")
                 .titleStyle(R.style.Help, Gravity.START)
                 .build();
-        FancyShowCaseView view4 = new FancyShowCaseView.Builder(this)
-                .focusOn(img_cheshmak)
-                .title("استفاه از حالت چشمک زن چراغ قوه")
-                .titleStyle(R.style.Help, Gravity.CENTER_HORIZONTAL)
-                .build();
+
 
         FancyShowCaseView view5 = new FancyShowCaseView.Builder(this)
                 .focusOn(linearLayout)
@@ -622,7 +621,6 @@ public class FlashLightActivity extends AppCompatActivity {
                 .build();
         FancyShowCaseQueue queue = new FancyShowCaseQueue();
         queue.add(view3);
-        queue.add(view4);
         queue.add(view2);
         queue.add(view1);
         queue.add(view5);
