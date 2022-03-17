@@ -1,4 +1,4 @@
-package com.example.amirnovinfar.Activity;
+package ir.iamnovinfar.FlashLights.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,12 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.amirnovinfar.R;
+import ir.iamnovinfar.FlashLights.R;
 
 public class About_usActivty extends Activity {
 

@@ -1,4 +1,4 @@
-package com.example.amirnovinfar.Activity;
+package ir.iamnovinfar.FlashLights.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.amirnovinfar.R;
+import ir.iamnovinfar.FlashLights.R;
 
 public class Call_Us extends AppCompatActivity {
 

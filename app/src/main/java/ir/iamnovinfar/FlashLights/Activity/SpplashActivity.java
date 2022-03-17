@@ -1,13 +1,10 @@
-package com.example.amirnovinfar.Activity;
+package ir.iamnovinfar.FlashLights.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Display;
-
-import com.example.amirnovinfar.R;
 
 public class SpplashActivity extends AppCompatActivity {
     boolean islogin;

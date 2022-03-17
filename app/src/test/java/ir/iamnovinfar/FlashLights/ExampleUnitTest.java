@@ -1,4 +1,4 @@
-package com.example.amirnovinfar;
+package ir.iamnovinfar.FlashLights;
 
 import org.junit.Test;
 

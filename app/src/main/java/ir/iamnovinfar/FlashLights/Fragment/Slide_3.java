@@ -1,8 +1,5 @@
-package com.example.amirnovinfar.Fragment;
+package ir.iamnovinfar.FlashLights.Fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,9 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import com.example.amirnovinfar.Activity.FlashLightActivity;
-import com.example.amirnovinfar.R;
+
+import ir.iamnovinfar.FlashLights.R;
 
 
 /**

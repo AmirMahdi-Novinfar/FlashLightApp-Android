@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_centerInParent="true"
     android:background="@drawable/back_about_us"
-    tools:context=".Activity.About_usActivty">
+    tools:context="ir.iamnovinfar.FlashLights.Activity.About_usActivty">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/aviny"
-        android:text="ورژن 2.0"
+        android:text="ورژن 2.2"
         android:textColor="#150000"
         android:textSize="26sp">
 

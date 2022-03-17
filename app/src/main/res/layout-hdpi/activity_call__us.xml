@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_backgroundaaa"
     android:layoutDirection="ltr"
-    tools:context="com.example.amirnovinfar.Activity.Call_Us">
+    tools:context="ir.iamnovinfar.FlashLights.ir.example.amirnovinfar.Activity.Call_Us">
 
 
     <TextView

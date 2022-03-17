@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.amirnovinfar">
+    package="ir.iamnovinfar.FlashLights">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
@@ -18,19 +18,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Setting"></activity>
-        <activity android:name=".Activity.Call_Us" />
-        <activity android:name=".Activity.SpplashActivity">
+        <activity android:name="ir.iamnovinfar.FlashLights.Activity.Setting"></activity>
+        <activity android:name="ir.iamnovinfar.FlashLights.Activity.Call_Us" />
+        <activity android:name="ir.iamnovinfar.FlashLights.Activity.SpplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.FlashLightActivity" >
+        <activity android:name="ir.iamnovinfar.FlashLights.Activity.FlashLightActivity" >
         </activity>
-        <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.About_usActivty" android:theme="@style/Theme.MaterialComponents.Dialog"></activity>
+        <activity android:name="ir.iamnovinfar.FlashLights.Activity.MainActivity" />
+        <activity android:name="ir.iamnovinfar.FlashLights.Activity.About_usActivty" android:theme="@style/Theme.MaterialComponents.Dialog"></activity>
     </application>
 
 </manifest>

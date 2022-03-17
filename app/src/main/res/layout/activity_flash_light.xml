@@ -7,7 +7,7 @@
     android:background="#2b2b2b"
     android:orientation="vertical"
     android:layoutDirection="ltr"
-    tools:context="com.example.amirnovinfar.Activity.FlashLightActivity">
+    tools:context="ir.iamnovinfar.FlashLights.Activity.FlashLightActivity">
 
 
     <LinearLayout

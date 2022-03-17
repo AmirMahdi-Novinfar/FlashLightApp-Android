@@ -1,4 +1,4 @@
-package com.example.amirnovinfar.Activity;
+package ir.iamnovinfar.FlashLights.Activity;
 
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
@@ -14,7 +14,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.BatteryManager;
 import android.os.Build;
@@ -37,7 +36,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.amirnovinfar.R;
+import ir.iamnovinfar.FlashLights.R;
 import com.google.android.material.navigation.NavigationView;
 import com.sdsmdg.tastytoast.TastyToast;
 

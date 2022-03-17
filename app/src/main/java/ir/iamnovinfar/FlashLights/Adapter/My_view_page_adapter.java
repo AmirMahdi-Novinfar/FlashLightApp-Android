@@ -1,14 +1,13 @@
-package com.example.amirnovinfar.Adapter;
+package ir.iamnovinfar.FlashLights.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.amirnovinfar.Fragment.Slide_1;
-import com.example.amirnovinfar.Fragment.Slide_2;
-import com.example.amirnovinfar.Fragment.Slide_3;
+import ir.iamnovinfar.FlashLights.Fragment.Slide_1;
+import ir.iamnovinfar.FlashLights.Fragment.Slide_2;
+import ir.iamnovinfar.FlashLights.Fragment.Slide_3;
 
 public class My_view_page_adapter extends FragmentStatePagerAdapter {
 

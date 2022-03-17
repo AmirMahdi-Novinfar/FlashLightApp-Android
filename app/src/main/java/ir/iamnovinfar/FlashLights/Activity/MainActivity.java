@@ -1,4 +1,4 @@
-package com.example.amirnovinfar.Activity;
+package ir.iamnovinfar.FlashLights.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.amirnovinfar.Adapter.My_view_page_adapter;
-import com.example.amirnovinfar.Adapter.ViewpagerAnimation;
-import com.example.amirnovinfar.R;
+import ir.iamnovinfar.FlashLights.Adapter.My_view_page_adapter;
+import ir.iamnovinfar.FlashLights.Adapter.ViewpagerAnimation;
+import ir.iamnovinfar.FlashLights.R;
 
 public class MainActivity extends AppCompatActivity {
     public Button btn, btn2;
